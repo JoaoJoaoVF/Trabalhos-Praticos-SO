@@ -1,0 +1,7 @@
+pager_create pid 0
+pager_extend pid 0 vaddr 0x7fd310001b80
+pager_extend pid 0 vaddr 0x7fd310001ba0
+pager_extend pid 0 vaddr 0x7fd310001bc0
+pager_extend pid 0 vaddr 0x7fd310001be0
+pager_extend pid 0 vaddr 0x7fd310001c00
+pager_destroy pid 0
