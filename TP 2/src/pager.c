@@ -4,23 +4,69 @@
 
 
 #include <sys/types.h>
+#include <pthread.h>
 
-int *memory; 
-int num_pages = 0; 
+
+struct page_t{
+
+}; 
+
+struct page_list{
+    int size; 
+}; 
+
+struct frames_t{
+    int pid; 
+};
+
+struct frame_list{
+    int size; 
+    struct frames_t *frames; 
+}; 
+
+struct blocks_t{
+}; 
+
+struct block_list{
+    int size; 
+    struct blocks_t *blocks; 
+}; 
+
+struct table_list{
+    struct page_list* pages_list; 
+}; 
+
+
+struct pages_list pager; 
+struct frame_list frame_list; 
+struct block_list block_list; 
+
+pthread_mutex_t mutex; 
 
 /* `pager_init` is called by the memory management infrastructure to
  * initialize the pager.  `nframes` and `nblocks` are the number of
  * physical memory frames available and the number of blocks for
  * backing store, respectively. */
 void pager_init(int nframes, int nblocks){
+    pthread_mutex_lock(&mutex); 
+    
+    frame_list.size = nframes; 
+    block_list.size = nblocks; 
+
+    frame_list.frames = malloc(nframes * sizeof(struct frames_t)); 
+    block_list.blocks = malloc(nblocks * sizeof(struct blocks_t)); 
+
+
+    
+
+
+    pthread_mutex_unlock(&mutex); 
 
 }
 
 /* `pager_create` should initialize any resources the pager needs to
  * manage memory for a new process `pid`. */
 void pager_create(pid_t pid){
-    memory = (void*) 0x60000000;  
-    num_pages++; 
 
 }
 
@@ -32,8 +78,6 @@ void pager_create(pid_t pid){
  * `pager_extend` should return NULL is there are no disk blocks to
  * use as backing storage. */
 void *pager_extend(pid_t pid){
-    memory = malloc(sizeof(size_t)*(num_pages-1)); 
-    return memory; 
 }
 
 /* `pager_fault` is called when process `pid` receives
