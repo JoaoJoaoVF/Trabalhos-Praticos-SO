@@ -1,27 +1,19 @@
-/* UNIVERSIDADE FEDERAL DE MINAS GERAIS     *
- * DEPARTAMENTO DE CIENCIA DA COMPUTACAO    *
- * Copyright (c) Italo Fernando Scota Cunha */
-
-
 #include <sys/types.h>
 
-int *memory; 
-int num_pages = 0; 
+#include "pager.h"
 
 /* `pager_init` is called by the memory management infrastructure to
  * initialize the pager.  `nframes` and `nblocks` are the number of
  * physical memory frames available and the number of blocks for
  * backing store, respectively. */
-void pager_init(int nframes, int nblocks){
-
+void pager_init(int nframes, int nblocks)
+{
 }
 
 /* `pager_create` should initialize any resources the pager needs to
  * manage memory for a new process `pid`. */
-void pager_create(pid_t pid){
-    memory = (void*) 0x60000000;  
-    num_pages++; 
-
+void pager_create(pid_t pid)
+{
 }
 
 /* `pager_extend` allocates a new page of memory to process `pid`
@@ -31,9 +23,8 @@ void pager_create(pid_t pid){
  * page (which will trigger a call to `pager_fault`).
  * `pager_extend` should return NULL is there are no disk blocks to
  * use as backing storage. */
-void *pager_extend(pid_t pid){
-    memory = malloc(sizeof(size_t)*(num_pages-1)); 
-    return memory; 
+void *pager_extend(pid_t pid)
+{
 }
 
 /* `pager_fault` is called when process `pid` receives
@@ -48,8 +39,8 @@ void *pager_extend(pid_t pid){
  * memory management infrastructure does not maintain page access
  * and writing information, your pager must track this information
  * to implement the second-chance algorithm. */
-void pager_fault(pid_t pid, void *addr){
-
+void pager_fault(pid_t pid, void *addr)
+{
 }
 
 /* `pager_syslog prints a message made of `len` bytes following
@@ -59,15 +50,14 @@ void pager_fault(pid_t pid, void *addr){
  * processes tries to syslog a memory region it has not allocated,
  * then `pager_syslog` should return -1 and set errno to EINVAL; if
  * the syslog succeeds, it should return 0. */
-int pager_syslog(pid_t pid, void *addr, size_t len){
-
+int pager_syslog(pid_t pid, void *addr, size_t len)
+{
 }
 
 /* `pager_destroy` is called when the process is already dead.  It
  * should free all resources process `pid` allocated (memory frames
  * and disk blocks).  `pager_destroy` should not call any of the MMU
  * functions. */
-void pager_destroy(pid_t pid){
-
+void pager_destroy(pid_t pid)
+{
 }
-
