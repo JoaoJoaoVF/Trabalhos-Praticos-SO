@@ -17,45 +17,141 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define NON_DEFINED -10;
-
-// estrutura de um quadro na memória
-typedef struct frame
+#define INVALID_PID -1
+typedef struct page_t
 {
-	pid_t pid;
+	int isvalid;
+	int frame_number;
+	int block_number;
+	int used;
 	intptr_t addr;
-	int free;
-	int second_chance;
-} frame;
+} page_t;
 
-// estrutura da tabela de páginas de um processo
-typedef struct page_table
-{
-	int *frames;
-	int *blocks;
-} page_table;
-
-// estrutura da tabela geral de páginas
-typedef struct page_table_list
+typedef struct page_table_t
 {
 	pid_t pid;
-	page_table *pages;
-} page_table_list;
+	page_t *pages;
+	int page_count;
+	int page_capacity;
+} page_table_t;
+typedef struct frames_t
+{
+	pid_t pid;
+	int accessed;
+	page_t *page;
+} frames_t;
+typedef struct frame_list_t
+{
+	int size;
+	int page_size;
+	int second_chance_index;
+	frames_t *frames;
+} Frame_list_t;
+typedef struct blocks_t
+{
+	int used;
+	page_t *page;
+} blocks_t;
+typedef struct block_list_t
+{
+	int nblocks;
+	blocks_t *blocks;
+} block_list_t;
 
-frame *frames_list;
-int max_nframes = 0;
-
-int *blocks_list;
-int max_nblocks = 0;
-int blocks_size = 0;
-
-page_table_list *pt_list;
-int pt_list_size = 1;
-
-int clock_index = 0;
-intptr_t addr = UVM_BASEADDR;
-int num_pages;
+Frame_list_t frame_list;
+block_list_t block_list;
+page_table_t *page_list;
+int page_tables_count = 0;
+int page_tables_capacity = 10;
 pthread_mutex_t mutex;
+
+page_table_t *find_page_table(pid_t pid);
+page_t *get_page(page_table_t *page_table_list, intptr_t addr);
+
+int get_new_frame()
+{
+	for (int i = 0; i < frame_list.size; i++)
+	{
+		if (frame_list.frames[i].pid == INVALID_PID)
+			return i;
+	}
+	return INVALID_PID;
+}
+
+int get_new_block()
+{
+	for (int i = 0; i < block_list.nblocks; i++)
+	{
+		if (block_list.blocks[i].page == NULL)
+			return i;
+	}
+	return INVALID_PID;
+}
+
+page_table_t *find_page_table(pid_t pid)
+{
+	for (int i = 0; i < page_tables_count; i++)
+	{
+		if (page_list[i].pid == pid)
+			return &page_list[i];
+	}
+	exit(INVALID_PID);
+}
+
+page_t *get_page(page_table_t *page_table_list, intptr_t addr)
+{
+	for (int i = 0; i < page_table_list->page_count; i++)
+	{
+		if (addr >= page_table_list->pages[i].addr && addr < (page_table_list->pages[i].addr + frame_list.page_size))
+			return &page_table_list->pages[i];
+	}
+	return NULL;
+}
+
+int second_chance()
+{
+	frames_t *frames = frame_list.frames;
+	int frame_to_swap = INVALID_PID;
+
+	while (frame_to_swap == INVALID_PID)
+	{
+		int index = frame_list.second_chance_index;
+		if (frames[index].accessed == 0)
+		{
+			frame_to_swap = index;
+		}
+		else
+		{
+			frames[index].accessed = 0;
+		}
+		frame_list.second_chance_index = (index + 1) % frame_list.size;
+	}
+
+	return frame_to_swap;
+}
+
+void swap(int frame_no)
+{
+	if (frame_no == 0)
+	{
+		for (int i = 0; i < frame_list.size; i++)
+		{
+			page_t *page = frame_list.frames[i].page;
+			mmu_chprot(frame_list.frames[i].pid, (void *)page->addr, PROT_NONE);
+		}
+	}
+
+	frames_t *frame = &frame_list.frames[frame_no];
+	page_t *removed_page = frame->page;
+	removed_page->isvalid = 0;
+	mmu_nonresident(frame->pid, (void *)removed_page->addr);
+
+	if (removed_page->used == 1)
+	{
+		block_list.blocks[removed_page->block_number].used = 1;
+		mmu_disk_write(frame_no, removed_page->block_number);
+	}
+}
 
 /* `pager_init` is called by the memory management infrastructure to
  * initialize the pager.  `nframes` and `nblocks` are the number of
@@ -63,83 +159,44 @@ pthread_mutex_t mutex;
  * backing store, respectively. */
 void pager_init(int nframes, int nblocks)
 {
-
 	pthread_mutex_lock(&mutex);
-	int i = 0;
+	frame_list.size = nframes;
+	frame_list.page_size = sysconf(_SC_PAGESIZE);
+	frame_list.second_chance_index = 0;
 
-	num_pages = (UVM_MAXADDR - UVM_BASEADDR + 1) / sysconf(_SC_PAGESIZE);
-
-	pt_list = (page_table_list *)malloc(1 * sizeof(page_table_list));
-	pt_list[0].pid = NON_DEFINED;
-	pt_list[0].pages = NULL;
-
-	frames_list = (frame *)malloc(nframes * sizeof(frame));
-	max_nframes = nframes;
-
-	blocks_list = (int *)malloc(nblocks * sizeof(int));
-	max_nblocks = nblocks;
-
-	for (i = 0; i < max_nblocks; i++)
-		blocks_list[i] = 0;
-
-	for (i = 0; i < max_nframes; i++, addr += sysconf(_SC_PAGESIZE))
+	frame_list.frames = malloc(nframes * sizeof(frames_t));
+	for (int i = 0; i < nframes; i++)
 	{
-		frames_list[i].pid = NON_DEFINED;
-		frames_list[i].addr = addr;
-		frames_list[i].free = 1;
-		frames_list[i].second_chance = 0;
+		frame_list.frames[i].pid = INVALID_PID;
 	}
 
+	block_list.nblocks = nblocks;
+	block_list.blocks = malloc(nblocks * sizeof(blocks_t));
+	for (int i = 0; i < nblocks; i++)
+	{
+		block_list.blocks[i].used = 0;
+	}
+
+	page_list = malloc(page_tables_capacity * sizeof(page_table_t));
 	pthread_mutex_unlock(&mutex);
 }
 
 /* `pager_create` should initialize any resources the pager needs to
  * manage memory for a new process `pid`. */
-
 void pager_create(pid_t pid)
 {
 	pthread_mutex_lock(&mutex);
-	int i = 0, j = 0, found_page = 0;
-	for (i = 0; i < pt_list_size; i++)
+	if (page_tables_count == page_tables_capacity)
 	{
-		if (pt_list[i].pages == NULL)
-		{
-			pt_list[i].pid = pid;
-			pt_list[i].pages = (page_table *)malloc(sizeof(page_table));
-			pt_list[i].pages->frames = (int *)malloc(num_pages * (sizeof(int)));
-			pt_list[i].pages->blocks = (int *)malloc(num_pages * (sizeof(int)));
-		}
-
-		for (j = 0; j < num_pages; j++)
-		{
-			pt_list[i].pages->frames[j] = NON_DEFINED;
-			pt_list[i].pages->blocks[j] = NON_DEFINED;
-		}
-
-		found_page = 1;
+		page_tables_capacity *= 2;
+		page_list = realloc(page_list, page_tables_capacity * sizeof(page_table_t));
 	}
 
-	if (!found_page)
-	{
-		pt_list = realloc(pt_list, (100 + pt_list_size) * sizeof(pt_list));
-
-		pt_list[pt_list_size].pid = pid;
-		pt_list[pt_list_size].pages = (page_table *)malloc(sizeof(page_table));
-		pt_list[pt_list_size].pages->frames = (int *)malloc(num_pages * sizeof(int));
-		pt_list[pt_list_size].pages->blocks = (int *)malloc(num_pages * sizeof(int));
-
-		for (j = 0; j < num_pages; j++)
-		{
-			pt_list[pt_list_size].pages->frames[j] = NON_DEFINED;
-			pt_list[pt_list_size].pages->blocks[j] = NON_DEFINED;
-		}
-
-		int pt_list_index = pt_list_size;
-		pt_list_size += 100;
-
-		for (j = pt_list_index; j < pt_list_size; j++)
-			pt_list[j].pages = NULL;
-	}
+	page_table_t *page_table_list = &page_list[page_tables_count++];
+	page_table_list->pid = pid;
+	page_table_list->pages = malloc(0);
+	page_table_list->page_count = 0;
+	page_table_list->page_capacity = 0;
 
 	pthread_mutex_unlock(&mutex);
 }
@@ -154,47 +211,31 @@ void pager_create(pid_t pid)
 void *pager_extend(pid_t pid)
 {
 	pthread_mutex_lock(&mutex);
+	int block_no = get_new_block();
 
-	if (blocks_size == max_nblocks)
+	if (block_no == INVALID_PID)
 	{
 		pthread_mutex_unlock(&mutex);
 		return NULL;
 	}
 
-	int block_found, return_index = 0, i = 0, block_index = 0;
+	page_table_t *page_table_list = find_page_table(pid);
 
-	for (i = 0; i < max_nblocks; i++)
+	if (page_table_list->page_count == page_table_list->page_capacity)
 	{
-		if (blocks_list[i] == 0)
-		{
-			blocks_list[i] = 1;
-			block_found = i;
-			blocks_size++;
-			break;
-		}
+		page_table_list->page_capacity = page_table_list->page_capacity == 0 ? 1 : page_table_list->page_capacity * 2;
+		page_table_list->pages = realloc(page_table_list->pages, page_table_list->page_capacity * sizeof(page_t));
 	}
 
-	for (i = 0; i < pt_list_size; i++)
-	{
+	page_t *page = &page_table_list->pages[page_table_list->page_count++];
+	page->isvalid = 0;
+	page->addr = UVM_BASEADDR + (page_table_list->page_count - 1) * frame_list.page_size;
+	page->block_number = block_no;
 
-		if (pt_list[i].pid == pid)
-		{
-
-			for (block_index = 0; block_index < num_pages; block_index++)
-			{
-
-				if (pt_list[i].pages->blocks[block_index] == -10)
-				{
-
-					pt_list[i].pages->blocks[block_index] = block_found;
-					break;
-				}
-			}
-		}
-	}
+	block_list.blocks[block_no].page = page;
 
 	pthread_mutex_unlock(&mutex);
-	return (void *)(UVM_BASEADDR + (intptr_t)(block_index * sysconf(_SC_PAGESIZE)));
+	return (void *)page->addr;
 }
 
 /* `pager_fault` is called when process `pid` receives
@@ -211,77 +252,47 @@ void *pager_extend(pid_t pid)
  * to implement the second-chance algorithm. */
 void pager_fault(pid_t pid, void *addr)
 {
-	int i, index;
+	pthread_mutex_lock(&mutex);
+	page_table_t *page_table_list = find_page_table(pid);
+	addr = (void *)((intptr_t)addr - (intptr_t)addr % frame_list.page_size);
+	page_t *page = get_page(page_table_list, (intptr_t)addr);
 
-	for (i = 0; i < pt_list_size; i++)
+	if (page->isvalid == 1)
 	{
-		if (pt_list[i].pid == pid)
-		{
-			index = i;
-			break;
-		}
-	}
-
-	int page_num = ((((intptr_t)addr) - UVM_BASEADDR) / (sysconf(_SC_PAGESIZE)));
-	int current_frame, temp_frame, temp_disk_block;
-
-	if (pt_list[index].pages->frames[page_num] != -10 &&
-		pt_list[index].pages->frames[page_num] != -2) // NON_DEFINED nao deu pra usar
-	{
-		current_frame = pt_list[index].pages->frames[page_num];
 		mmu_chprot(pid, addr, PROT_READ | PROT_WRITE);
+		frame_list.frames[page->frame_number].accessed = 1;
+		page->used = 1;
 	}
 	else
 	{
-		temp_frame = -1;
+		int frame_no = get_new_frame();
 
-		for (i = 0; i < max_nframes; i++)
+		if (frame_no == INVALID_PID)
 		{
-			if (frames_list[i].free)
-			{
-				temp_frame = i;
-				frames_list[i].pid = pid;
-				frames_list[i].addr = (intptr_t)addr;
-				frames_list[i].free = 0;
-
-				if (pt_list[index].pages->frames[page_num] == -2)
-				{
-					temp_disk_block = pt_list[index].pages->blocks[page_num];
-					mmu_disk_read(temp_disk_block, temp_frame);
-				}
-				else
-				{
-					mmu_zero_fill(temp_frame);
-				}
-				pt_list[index].pages->frames[page_num] = temp_frame;
-				mmu_resident(pid, addr, temp_frame, PROT_READ);
-				break;
-			}
+			frame_no = second_chance();
+			swap(frame_no);
 		}
 
-		if (temp_frame == -1)
+		frames_t *frame = &frame_list.frames[frame_no];
+		frame->pid = pid;
+		frame->page = page;
+		frame->accessed = 1;
+
+		page->isvalid = 1;
+		page->frame_number = frame_no;
+		page->used = 0;
+
+		if (block_list.blocks[page->block_number].used == 1)
 		{
-			temp_frame = 0;
-			current_frame = pt_list[index].pages->frames[page_num];
-			frames_list[temp_frame].pid = pid;
-			frames_list[temp_frame].addr = (intptr_t)addr;
-
-			if (pt_list[index].pages->frames[page_num] == -2)
-			{
-				temp_disk_block = pt_list[index].pages->blocks[page_num];
-				mmu_disk_read(temp_disk_block, temp_frame);
-			}
-			else
-			{
-				mmu_zero_fill(temp_frame);
-			}
-			pt_list[index].pages->frames[page_num] = temp_frame;
-			mmu_resident(pid, addr, temp_frame, PROT_READ);
-			mmu_chprot(pid, addr, PROT_READ | PROT_WRITE);
-
-			frames_list[current_frame].free = 1;
+			mmu_disk_read(page->block_number, frame_no);
 		}
+		else
+		{
+			mmu_zero_fill(frame_no);
+		}
+		mmu_resident(pid, addr, frame_no, PROT_READ);
 	}
+	pthread_mutex_unlock(&mutex);
 }
 
 /* `pager_syslog prints a message made of `len` bytes following
@@ -294,34 +305,29 @@ void pager_fault(pid_t pid, void *addr)
 int pager_syslog(pid_t pid, void *addr, size_t len)
 {
 	pthread_mutex_lock(&mutex);
+	page_table_t *page_table_list = find_page_table(pid);
+	char *buf = (char *)malloc(len + 1);
 
-	for (int i = 0; i < pt_list_size; i++)
+	for (size_t i = 0, m = 0; i < len; i++)
 	{
-		if (pt_list[i].pid == pid)
+		page_t *page = get_page(page_table_list, (intptr_t)addr + i);
+		if (page == NULL)
 		{
-			int curr_page = ((intptr_t)addr - UVM_BASEADDR) / sysconf(_SC_PAGESIZE);
-			if (pt_list[i].pages->frames[curr_page] == -10)
-			{
-				pthread_mutex_unlock(&mutex);
-				return -1;
-			}
-			break;
+			pthread_mutex_unlock(&mutex);
+			return INVALID_PID;
 		}
+		buf[m++] = pmem[page->frame_number * frame_list.page_size + i];
 	}
-
-	char *buf = (char *)malloc(len * sizeof(char));
-
-	memcpy(buf, addr, len);
 
 	for (int i = 0; i < len; i++)
 	{
 		printf("%02x", (unsigned)buf[i]);
 	}
 
-	free(buf);
+	if (len > 0)
+		printf("\n");
 
 	pthread_mutex_unlock(&mutex);
-
 	return 0;
 }
 
@@ -332,21 +338,18 @@ int pager_syslog(pid_t pid, void *addr, size_t len)
 void pager_destroy(pid_t pid)
 {
 	pthread_mutex_lock(&mutex);
-	int i = 0;
-	for (i = 0; i < pt_list_size; i++)
+	page_table_t *page_table_list = find_page_table(pid);
+
+	while (page_table_list->page_count > 0)
 	{
-		if (pt_list[i].pid == pid)
+		page_t *page = &page_table_list->pages[--page_table_list->page_count];
+		block_list.blocks[page->block_number].page = NULL;
+		if (page->isvalid == 1)
 		{
-			free(pt_list[i].pages->frames);
-			free(pt_list[i].pages->blocks);
-			free(pt_list[i].pages);
-
-			pt_list[i].pid = NON_DEFINED;
-			pt_list[i].pages = NULL;
-
-			break;
+			frame_list.frames[page->frame_number].pid = INVALID_PID;
 		}
 	}
 
+	free(page_table_list->pages);
 	pthread_mutex_unlock(&mutex);
 }
