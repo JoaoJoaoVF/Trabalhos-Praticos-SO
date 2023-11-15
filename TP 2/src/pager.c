@@ -2,20 +2,15 @@
  * DEPARTAMENTO DE CIENCIA DA COMPUTACAO    *
  * Copyright (c) Italo Fernando Scota Cunha */
 
-#include <sys/types.h>
 #include <pthread.h>
-#include <sys/mman.h>
-#include <string.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <sys/mman.h>
 #include <unistd.h>
+
 #include "mmu.h"
 #include "pager.h"
-
-#include <stdlib.h>
-#include <assert.h>
 
 #define INVALID_PID -1
 typedef struct page_t
@@ -34,40 +29,63 @@ typedef struct page_table_t
 	int page_count;
 	int page_capacity;
 } page_table_t;
+
 typedef struct frames_t
 {
 	pid_t pid;
 	int accessed;
 	page_t *page;
 } frames_t;
+
 typedef struct frame_list_t
 {
 	int size;
 	int page_size;
 	int second_chance_index;
 	frames_t *frames;
-} Frame_list_t;
+} frame_list_t;
+
 typedef struct blocks_t
 {
 	int used;
 	page_t *page;
 } blocks_t;
+
 typedef struct block_list_t
 {
 	int nblocks;
 	blocks_t *blocks;
 } block_list_t;
 
-Frame_list_t frame_list;
+frame_list_t frame_list;
 block_list_t block_list;
 page_table_t *page_list;
 int page_tables_count = 0;
 int page_tables_capacity = 10;
-pthread_mutex_t mutex;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-page_table_t *find_page_table(pid_t pid);
-page_t *get_page(page_table_t *page_table_list, intptr_t addr);
+// Função auxiliar para liberar memória alocada para uma página
+void free_page(page_t *page)
+{
+	if (page->isvalid == 1)
+	{
+		frame_list.frames[page->frame_number].pid = INVALID_PID;
+	}
+}
 
+// Função auxiliar para liberar memória alocada para uma lista de páginas
+void free_page_list(page_table_t *page_table_list)
+{
+	while (page_table_list->page_count > 0)
+	{
+		page_t *page = &page_table_list->pages[--page_table_list->page_count];
+		block_list.blocks[page->block_number].page = NULL;
+		free_page(page);
+	}
+	free(page_table_list->pages);
+}
+
+// Função auxiliar para obter um novo frame
 int get_new_frame()
 {
 	for (int i = 0; i < frame_list.size; i++)
@@ -78,6 +96,7 @@ int get_new_frame()
 	return INVALID_PID;
 }
 
+// funçao auxiliar para obter um novo bloco
 int get_new_block()
 {
 	for (int i = 0; i < block_list.nblocks; i++)
@@ -88,6 +107,7 @@ int get_new_block()
 	return INVALID_PID;
 }
 
+// Função auxiliar para encontrar uma tabela de páginas
 page_table_t *find_page_table(pid_t pid)
 {
 	for (int i = 0; i < page_tables_count; i++)
@@ -98,6 +118,7 @@ page_table_t *find_page_table(pid_t pid)
 	exit(INVALID_PID);
 }
 
+// Função auxiliar para encontrar uma página
 page_t *get_page(page_table_t *page_table_list, intptr_t addr)
 {
 	for (int i = 0; i < page_table_list->page_count; i++)
@@ -108,6 +129,7 @@ page_t *get_page(page_table_t *page_table_list, intptr_t addr)
 	return NULL;
 }
 
+// Função do algoritmo de segunda chance
 int second_chance()
 {
 	frames_t *frames = frame_list.frames;
@@ -130,6 +152,7 @@ int second_chance()
 	return frame_to_swap;
 }
 
+// Função auxiliar para trocar uma página
 void swap(int frame_no)
 {
 	if (frame_no == 0)
@@ -150,6 +173,86 @@ void swap(int frame_no)
 	{
 		block_list.blocks[removed_page->block_number].used = 1;
 		mmu_disk_write(frame_no, removed_page->block_number);
+	}
+}
+
+// Função auxiliar para imprimir os bytes de uma página
+void print_page_bytes(page_t *page, size_t len)
+{
+	char *buf = (char *)malloc(len + 1);
+
+	for (size_t i = 0; i < len; i++)
+	{
+		buf[i] = pmem[page->frame_number * frame_list.page_size + i];
+	}
+
+	for (int i = 0; i < len; i++)
+	{
+		printf("%02x", (unsigned)buf[i]);
+	}
+
+	if (len > 0)
+	{
+		printf("\n");
+	}
+
+	free(buf);
+}
+
+// Função auxiliar para a lógica do pager_fault após verificar a validade da página
+void handle_valid_page(page_t *page, pid_t pid, void *addr)
+{
+	mmu_chprot(pid, addr, PROT_READ | PROT_WRITE);
+	frame_list.frames[page->frame_number].accessed = 1;
+	page->used = 1;
+}
+
+// Função auxiliar para a lógica do pager_fault após verificar a invalidade da página
+void handle_invalid_page(page_t *page, pid_t pid, void *addr)
+{
+	int frame_no = get_new_frame();
+
+	if (frame_no == INVALID_PID)
+	{
+		frame_no = second_chance();
+		swap(frame_no);
+	}
+
+	frames_t *frame = &frame_list.frames[frame_no];
+	frame->pid = pid;
+	frame->page = page;
+	frame->accessed = 1;
+
+	page->isvalid = 1;
+	page->frame_number = frame_no;
+	page->used = 0;
+
+	if (block_list.blocks[page->block_number].used == 1)
+	{
+		mmu_disk_read(page->block_number, frame_no);
+	}
+	else
+	{
+		mmu_zero_fill(frame_no);
+	}
+
+	mmu_resident(pid, addr, frame_no, PROT_READ);
+}
+
+// Função auxiliar para verificar a validade da página antes de lidar com o pager_fault
+void check_page_validity(pid_t pid, void *addr)
+{
+	page_table_t *page_table_list = find_page_table(pid);
+	addr = (void *)((intptr_t)addr - (intptr_t)addr % frame_list.page_size);
+	page_t *page = get_page(page_table_list, (intptr_t)addr);
+
+	if (page->isvalid == 1)
+	{
+		handle_valid_page(page, pid, addr);
+	}
+	else
+	{
+		handle_invalid_page(page, pid, addr);
 	}
 }
 
@@ -253,45 +356,7 @@ void *pager_extend(pid_t pid)
 void pager_fault(pid_t pid, void *addr)
 {
 	pthread_mutex_lock(&mutex);
-	page_table_t *page_table_list = find_page_table(pid);
-	addr = (void *)((intptr_t)addr - (intptr_t)addr % frame_list.page_size);
-	page_t *page = get_page(page_table_list, (intptr_t)addr);
-
-	if (page->isvalid == 1)
-	{
-		mmu_chprot(pid, addr, PROT_READ | PROT_WRITE);
-		frame_list.frames[page->frame_number].accessed = 1;
-		page->used = 1;
-	}
-	else
-	{
-		int frame_no = get_new_frame();
-
-		if (frame_no == INVALID_PID)
-		{
-			frame_no = second_chance();
-			swap(frame_no);
-		}
-
-		frames_t *frame = &frame_list.frames[frame_no];
-		frame->pid = pid;
-		frame->page = page;
-		frame->accessed = 1;
-
-		page->isvalid = 1;
-		page->frame_number = frame_no;
-		page->used = 0;
-
-		if (block_list.blocks[page->block_number].used == 1)
-		{
-			mmu_disk_read(page->block_number, frame_no);
-		}
-		else
-		{
-			mmu_zero_fill(frame_no);
-		}
-		mmu_resident(pid, addr, frame_no, PROT_READ);
-	}
+	check_page_validity(pid, addr);
 	pthread_mutex_unlock(&mutex);
 }
 
@@ -307,26 +372,23 @@ int pager_syslog(pid_t pid, void *addr, size_t len)
 	pthread_mutex_lock(&mutex);
 	page_table_t *page_table_list = find_page_table(pid);
 	char *buf = (char *)malloc(len + 1);
+	page_t *page;
 
 	for (size_t i = 0, m = 0; i < len; i++)
 	{
-		page_t *page = get_page(page_table_list, (intptr_t)addr + i);
+		page = get_page(page_table_list, (intptr_t)addr + i);
 		if (page == NULL)
 		{
+			free(buf);
 			pthread_mutex_unlock(&mutex);
 			return INVALID_PID;
 		}
 		buf[m++] = pmem[page->frame_number * frame_list.page_size + i];
 	}
 
-	for (int i = 0; i < len; i++)
-	{
-		printf("%02x", (unsigned)buf[i]);
-	}
+	print_page_bytes(page, len);
 
-	if (len > 0)
-		printf("\n");
-
+	free(buf);
 	pthread_mutex_unlock(&mutex);
 	return 0;
 }
@@ -339,17 +401,6 @@ void pager_destroy(pid_t pid)
 {
 	pthread_mutex_lock(&mutex);
 	page_table_t *page_table_list = find_page_table(pid);
-
-	while (page_table_list->page_count > 0)
-	{
-		page_t *page = &page_table_list->pages[--page_table_list->page_count];
-		block_list.blocks[page->block_number].page = NULL;
-		if (page->isvalid == 1)
-		{
-			frame_list.frames[page->frame_number].pid = INVALID_PID;
-		}
-	}
-
-	free(page_table_list->pages);
+	free_page_list(page_table_list);
 	pthread_mutex_unlock(&mutex);
 }
