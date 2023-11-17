@@ -1,6 +1,0 @@
-mmu_init_disk: 4194304 bytes in 1024 blocks
-mmu_init_pmem: mmap fd 4 path mmu.pmem.img.Fa9mSq
-mmu_init_pmem: 1048576 bytes in 256 pages
-mmu_init_sock: unix socket 5 at mmu.sock
-mmu_init_sigs: SIGINT triggers shutdown
-mmu_accept_loop: accepting connection
