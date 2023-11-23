@@ -15,8 +15,10 @@
     * Luiza de Melo Gomes luizademelo@dcc.ufmg.br 33%
 
 3. Referências bibliográficas
+   
+   Silverchatz, Galvin, Gagne; Operating System Fundaments, 8th Edition 
 
-4. Detalhes de implementação
+5. Detalhes de implementação
 
     1. Descreva e justifique as estruturas de dados utilizadas em sua solução.
         As principais estruturas de dados utilizadas na solução são:
