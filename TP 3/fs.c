@@ -22,7 +22,7 @@ struct superblock * create_superblock(const char *fname, uint64_t blocksize, uin
     sb->blksz = blocksize;
     sb->freeblks = numero_blocos - 3;
     sb->root = 2; // localização do diretório raiz
-    sb->freelist = 3; // localização da lista de blocos livres
+    sb->freelist = 3; // localização da lista de blocos
     sb->fd = open(fname, O_RDWR, 0777);
     return sb; 
 }
@@ -81,12 +81,18 @@ struct superblock *fs_format(const char *fname, uint64_t blocksize)
     strcpy(rootinfo->name, "/\0");
 
     write(sb->fd, sb, blocksize); 
-
     write(sb->fd, rootinfo, blocksize); 
-
     write(sb->fd, root, blocksize); 
 
+    struct freepage *fp; 
+    // inicializando a lista de páginas vazias
+    for(int i = 4; i < blocksize-1; i++){
+        fp->next = i; 
+        write(sb->fd, fp, blocksize); 
+    }
 
+    fp->next = 0; 
+    write(sb->fd, fp, blocksize); 
 
     return sb;
 }
