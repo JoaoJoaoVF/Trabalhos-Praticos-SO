@@ -11,24 +11,9 @@
 
 #include "fs.h"
 
-void init_superblock(struct superblock * sb, const char *fname, uint64_t blocksize, uint64_t numero_blocos){
-    sb =  (struct superblock*) malloc(blocksize); 
-    sb->magic = 0xdcc605f5; // esse valor está no fs.h
-    sb->blks = numero_blocos; 
-    sb->blksz = blocksize; 
-    sb->freeblks = numero_blocos - 3; 
-    sb->freelist = 3; 
-    sb->fd = open(fname, O_RDWR, 0777);   
-}
+#define MAGIC 0xdcc605f5 // esse valor está no fs.h
+#define ERROR -1
 
-void init_root(struct inode *root){
-    root->mode = IMDIR; 
-    root->parent = 2; 
-    root->meta = 1; 
-    root->next = 0; 
-    memset(root->links, 0, sizeof(uint64_t)); 
-
-}
 
 /* Build a new filesystem image in =fname (the file =fname should be present
  * in the OS's filesystem).  The new filesystem should use =blocksize as its
@@ -39,37 +24,54 @@ void init_root(struct inode *root){
  * MIN_BLOCK_SIZE bytes, then the format fails and the function sets errno to
  * EINVAL.  If there is insufficient space to store MIN_BLOCK_COUNT blocks in
  * =fname, then the function fails and sets errno to ENOSPC. */
-struct superblock *fs_format(const char *fname, uint64_t blocksize) {
+struct superblock *fs_format(const char *fname, uint64_t blocksize)
+{
 
     // verifica se o tamanho do bloco é menor do que o tamanho mínimo de bloco
-    if(blocksize < MIN_BLOCK_SIZE){
-        errno = EINVAL; 
-        return NULL; 
+    if (blocksize < MIN_BLOCK_SIZE)
+    {
+        errno = EINVAL;
+        return NULL;
     }
 
-    FILE *arquivo = fopen(fname, "r");  
-    
-    // fazendo o ponteiro apontar para o final do arquivo 
-    fseek(arquivo, 0, SEEK_END);
-    long long tamanho = ftell(arquivo); 
-    fclose(arquivo); 
+    FILE *arquivo = fopen(fname, "r");
 
-    uint64_t numero_blocos = tamanho / blocksize; 
+    // fazendo o ponteiro apontar para o final do arquivo
+    fseek(arquivo, 0, SEEK_END);
+    long long tamanho = ftell(arquivo);
+    fclose(arquivo);
+
+    uint64_t numero_blocos = tamanho / blocksize;
 
     // verifica se o numero de blocos é menor do que o numero mínimo de blocos
-    if(numero_blocos < MIN_BLOCK_COUNT){
-        errno = ENOSPC; 
-        return NULL; 
+    if (numero_blocos < MIN_BLOCK_COUNT)
+    {
+        errno = ENOSPC;
+        return NULL;
     }
 
     struct superblock *sb;
-    struct inode *root; 
-    struct nodeinfo *rootinfo = malloc(blocksize); 
+    struct inode *root;
+    struct nodeinfo *rootinfo = malloc(blocksize);
 
-    init_superblock(sb, fname, blocksize, numero_blocos); 
-    init_root(root); 
-    strcpy(rootinfo->name, "/"); 
+    // inicializando o superblock
+    sb = (struct superblock *)malloc(blocksize);
+    sb->magic = MAGIC;
+    sb->blks = numero_blocos;
+    sb->blksz = blocksize;
+    sb->freeblks = numero_blocos - 3;
+    sb->freelist = 3;
+    sb->fd = open(fname, O_RDWR, 0777);
 
+    // inicializando o diretório raiz
+    root->mode = IMDIR;
+    root->parent = 2;
+    root->meta = 1;
+    root->next = 0;
+    memset(root->links, 0, sizeof(uint64_t));
+    strcpy(rootinfo->name, "/");
+
+    return sb;
 }
 
 /* Open the filesystem in =fname and return its superblock.  Returns NULL on
@@ -80,7 +82,19 @@ struct superblock *fs_open(const char *fname) {}
 /* Close the filesystem pointed to by =sb.  Returns zero on success and a
  * negative number on error.  If there is an error, all resources are freed
  * and errno is set appropriately. */
-int fs_close(struct superblock *sb) {}
+int fs_close(struct superblock *sb)
+{
+    if (sb->magic != MAGIC)
+    {
+        errno = EBADF;
+        return ERROR;
+    }
+
+    close(sb->fd);
+    free(sb);
+
+    return 0;
+}
 
 /* Get a free block in the filesystem.  This block shall be removed from the
  * list of free blocks in the filesystem.  If there are no free blocks, zero
