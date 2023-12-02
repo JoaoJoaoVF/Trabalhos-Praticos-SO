@@ -14,6 +14,28 @@
 #define MAGIC 0xdcc605f5 // esse valor está no fs.h
 #define ERROR -1
 
+struct superblock * create_superblock(const char *fname, uint64_t blocksize, uint64_t numero_blocos){
+    struct superblock *sb;
+    sb = (struct superblock *)malloc(blocksize);
+    sb->magic = MAGIC;
+    sb->blks = numero_blocos;
+    sb->blksz = blocksize;
+    sb->freeblks = numero_blocos - 3;
+    sb->freelist = 3;
+    sb->fd = open(fname, O_RDWR, 0777);
+    return sb; 
+}
+
+struct inode * create_root_directory(uint64_t blocksize){
+    struct inode *root;
+    root = (struct inode *)malloc(blocksize); 
+    root->mode = IMDIR;
+    root->parent = 2;
+    root->meta = 1;
+    root->next = 0;
+    memset(root->links, 0, sizeof(uint64_t));
+    return root; 
+}
 
 /* Build a new filesystem image in =fname (the file =fname should be present
  * in the OS's filesystem).  The new filesystem should use =blocksize as its
@@ -50,26 +72,13 @@ struct superblock *fs_format(const char *fname, uint64_t blocksize)
         return NULL;
     }
 
-    struct superblock *sb;
-    struct inode *root;
+    struct superblock *sb = create_superblock(fname, blocksize, numero_blocos);
+    struct inode *root = create_root_directory(blocksize); 
     struct nodeinfo *rootinfo = malloc(blocksize);
 
-    // inicializando o superblock
-    sb = (struct superblock *)malloc(blocksize);
-    sb->magic = MAGIC;
-    sb->blks = numero_blocos;
-    sb->blksz = blocksize;
-    sb->freeblks = numero_blocos - 3;
-    sb->freelist = 3;
-    sb->fd = open(fname, O_RDWR, 0777);
-
-    // inicializando o diretório raiz
-    root->mode = IMDIR;
-    root->parent = 2;
-    root->meta = 1;
-    root->next = 0;
-    memset(root->links, 0, sizeof(uint64_t));
     strcpy(rootinfo->name, "/");
+
+
 
     return sb;
 }
