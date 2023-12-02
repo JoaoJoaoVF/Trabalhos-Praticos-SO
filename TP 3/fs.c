@@ -21,7 +21,8 @@ struct superblock * create_superblock(const char *fname, uint64_t blocksize, uin
     sb->blks = numero_blocos;
     sb->blksz = blocksize;
     sb->freeblks = numero_blocos - 3;
-    sb->freelist = 3;
+    sb->root = 2; // localização do diretório raiz
+    sb->freelist = 3; // localização da lista de blocos livres
     sb->fd = open(fname, O_RDWR, 0777);
     return sb; 
 }
@@ -74,9 +75,16 @@ struct superblock *fs_format(const char *fname, uint64_t blocksize)
 
     struct superblock *sb = create_superblock(fname, blocksize, numero_blocos);
     struct inode *root = create_root_directory(blocksize); 
-    struct nodeinfo *rootinfo = malloc(blocksize);
+    struct nodeinfo *rootinfo = (struct nodeinfo *) malloc(blocksize);
 
-    strcpy(rootinfo->name, "/");
+    rootinfo->size = 0; 
+    strcpy(rootinfo->name, "/\0");
+
+    write(sb->fd, sb, blocksize); 
+
+    write(sb->fd, rootinfo, blocksize); 
+
+    write(sb->fd, root, blocksize); 
 
 
 
