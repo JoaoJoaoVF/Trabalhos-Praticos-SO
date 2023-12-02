@@ -4,8 +4,31 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdint.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/file.h>
+#include <sys/stat.h>
 
 #include "fs.h"
+
+void init_superblock(struct superblock * sb, const char *fname, uint64_t blocksize, uint64_t numero_blocos){
+    sb =  (struct superblock*) malloc(blocksize); 
+    sb->magic = 0xdcc605f5; // esse valor está no fs.h
+    sb->blks = numero_blocos; 
+    sb->blksz = blocksize; 
+    sb->freeblks = numero_blocos - 3; 
+    sb->freelist = 3; 
+    sb->fd = open(fname, O_RDWR, 0777);   
+}
+
+void init_root(struct inode *root){
+    root->mode = IMDIR; 
+    root->parent = 2; 
+    root->meta = 1; 
+    root->next = 0; 
+    memset(root->links, 0, sizeof(uint64_t)); 
+
+}
 
 /* Build a new filesystem image in =fname (the file =fname should be present
  * in the OS's filesystem).  The new filesystem should use =blocksize as its
@@ -16,7 +39,38 @@
  * MIN_BLOCK_SIZE bytes, then the format fails and the function sets errno to
  * EINVAL.  If there is insufficient space to store MIN_BLOCK_COUNT blocks in
  * =fname, then the function fails and sets errno to ENOSPC. */
-struct superblock *fs_format(const char *fname, uint64_t blocksize) {}
+struct superblock *fs_format(const char *fname, uint64_t blocksize) {
+
+    // verifica se o tamanho do bloco é menor do que o tamanho mínimo de bloco
+    if(blocksize < MIN_BLOCK_SIZE){
+        errno = EINVAL; 
+        return NULL; 
+    }
+
+    FILE *arquivo = fopen(fname, "r");  
+    
+    // fazendo o ponteiro apontar para o final do arquivo 
+    fseek(arquivo, 0, SEEK_END);
+    long long tamanho = ftell(arquivo); 
+    fclose(arquivo); 
+
+    uint64_t numero_blocos = tamanho / blocksize; 
+
+    // verifica se o numero de blocos é menor do que o numero mínimo de blocos
+    if(numero_blocos < MIN_BLOCK_COUNT){
+        errno = ENOSPC; 
+        return NULL; 
+    }
+
+    struct superblock *sb;
+    struct inode *root; 
+    struct nodeinfo *rootinfo = malloc(blocksize); 
+
+    init_superblock(sb, fname, blocksize, numero_blocos); 
+    init_root(root); 
+    strcpy(rootinfo->name, "/"); 
+
+}
 
 /* Open the filesystem in =fname and return its superblock.  Returns NULL on
  * error, and sets errno accordingly.  If =fname does not contain a
