@@ -21,8 +21,13 @@ struct superblock * create_superblock(const char *fname, uint64_t blocksize, uin
     sb->blks = numero_blocos;
     sb->blksz = blocksize;
     sb->freeblks = numero_blocos - 3;
+
+    /* na posição 0 está o superbloco em si
+    na posição 1 está o nodeinfo
+    na posição 2 está o diretório raiz
+    na posição 3 está a lista de blocos vazios */
     sb->root = 2; // localização do diretório raiz
-    sb->freelist = 3; // localização da lista de blocos
+    sb->freelist = 3; // localização da lista de blocos vazios
     sb->fd = open(fname, O_RDWR, 0777);
     return sb; 
 }
@@ -100,7 +105,26 @@ struct superblock *fs_format(const char *fname, uint64_t blocksize)
 /* Open the filesystem in =fname and return its superblock.  Returns NULL on
  * error, and sets errno accordingly.  If =fname does not contain a
  * 0xdcc605fs, then errno is set to EBADF. */
-struct superblock *fs_open(const char *fname) {}
+struct superblock *fs_open(const char *fname) {
+
+    // o open() retorna um descritor de arquivo de acordo com https://man7.org/linux/man-pages/man2/open.2.html
+    uint64_t file_descriptor = open(fname, O_RDWR, 0777); 
+
+    struct superblock *sb = malloc(sizeof(struct superblock)); 
+
+    sb->fd = file_descriptor; 
+    read(file_descriptor, sb, sizeof(struct superblock)); 
+
+    if(sb->magic != MAGIC){
+        close(file_descriptor); 
+        errno = EBADF;
+        free(sb); 
+        return NULL; 
+    }
+
+    return sb; 
+
+}
 
 /* Close the filesystem pointed to by =sb.  Returns zero on success and a
  * negative number on error.  If there is an error, all resources are freed
@@ -123,7 +147,39 @@ int fs_close(struct superblock *sb)
  * list of free blocks in the filesystem.  If there are no free blocks, zero
  * is returned.  If an error occurs, (uint64_t)-1 is returned and errno is set
  * appropriately. */
-uint64_t fs_get_block(struct superblock *sb) {}
+uint64_t fs_get_block(struct superblock *sb) {
+
+    // não há blocos vazios
+    if(sb->freeblks == 0){
+        errno = ENOSPC; 
+        return 0; 
+    }
+
+
+    // posiciona o ponteiro para o bloco vazio
+    lseek(sb->fd, sb->blksz * sb->freeblks, SEEK_SET); 
+
+    struct freepage *fp = (struct freepage *) malloc(sb->blksz); 
+
+    if(read(sb->fd, fp, sb->blksz) < 0){
+        free(fp); 
+        return ((uint64_t)0)-1;
+    }  
+
+    uint64_t freeblock = sb->freelist; 
+    sb->freeblks -= 1; 
+    sb->freelist = fp->next; 
+    
+    lseek(sb->fd, 0, SEEK_SET); 
+
+    if(write(sb->fd, sb, sb->blksz) < 0){
+        return 0; 
+    }
+
+    free(fp); 
+
+    return freeblock; 
+}
 
 /* Put =block back into the filesystem as a free block.  Returns zero on
  * success or a negative value on error.  If there is an error, errno is set

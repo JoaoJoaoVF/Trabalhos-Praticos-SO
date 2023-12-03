@@ -1,0 +1,612 @@
+fs.c: In function ‘fs_open’:
+fs.c:103:48: warning: control reaches end of non-void function [-Wreturn-type]
+  103 | struct superblock *fs_open(const char *fname) {}
+      |                                                ^
+fs.c: In function ‘fs_get_block’:
+fs.c:126:47: warning: control reaches end of non-void function [-Wreturn-type]
+  126 | uint64_t fs_get_block(struct superblock *sb) {}
+      |                                               ^
+fs.c: In function ‘fs_put_block’:
+fs.c:131:58: warning: control reaches end of non-void function [-Wreturn-type]
+  131 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:134:32: warning: control reaches end of non-void function [-Wreturn-type]
+  134 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:137:37: warning: control reaches end of non-void function [-Wreturn-type]
+  137 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:139:58: warning: control reaches end of non-void function [-Wreturn-type]
+  139 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:141:57: warning: control reaches end of non-void function [-Wreturn-type]
+  141 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:143:57: warning: control reaches end of non-void function [-Wreturn-type]
+  143 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:145:62: warning: control reaches end of non-void function [-Wreturn-type]
+  145 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:90:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   90 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_open’:
+fs.c:103:48: warning: control reaches end of non-void function [-Wreturn-type]
+  103 | struct superblock *fs_open(const char *fname) {}
+      |                                                ^
+fs.c: In function ‘fs_get_block’:
+fs.c:126:47: warning: control reaches end of non-void function [-Wreturn-type]
+  126 | uint64_t fs_get_block(struct superblock *sb) {}
+      |                                               ^
+fs.c: In function ‘fs_put_block’:
+fs.c:131:58: warning: control reaches end of non-void function [-Wreturn-type]
+  131 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:134:32: warning: control reaches end of non-void function [-Wreturn-type]
+  134 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:137:37: warning: control reaches end of non-void function [-Wreturn-type]
+  137 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:139:58: warning: control reaches end of non-void function [-Wreturn-type]
+  139 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:141:57: warning: control reaches end of non-void function [-Wreturn-type]
+  141 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:143:57: warning: control reaches end of non-void function [-Wreturn-type]
+  143 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:145:62: warning: control reaches end of non-void function [-Wreturn-type]
+  145 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:90:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   90 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_open’:
+fs.c:103:48: warning: control reaches end of non-void function [-Wreturn-type]
+  103 | struct superblock *fs_open(const char *fname) {}
+      |                                                ^
+fs.c: In function ‘fs_get_block’:
+fs.c:126:47: warning: control reaches end of non-void function [-Wreturn-type]
+  126 | uint64_t fs_get_block(struct superblock *sb) {}
+      |                                               ^
+fs.c: In function ‘fs_put_block’:
+fs.c:131:58: warning: control reaches end of non-void function [-Wreturn-type]
+  131 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:134:32: warning: control reaches end of non-void function [-Wreturn-type]
+  134 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:137:37: warning: control reaches end of non-void function [-Wreturn-type]
+  137 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:139:58: warning: control reaches end of non-void function [-Wreturn-type]
+  139 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:141:57: warning: control reaches end of non-void function [-Wreturn-type]
+  141 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:143:57: warning: control reaches end of non-void function [-Wreturn-type]
+  143 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:145:62: warning: control reaches end of non-void function [-Wreturn-type]
+  145 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:90:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   90 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_get_block’:
+fs.c:145:47: warning: control reaches end of non-void function [-Wreturn-type]
+  145 | uint64_t fs_get_block(struct superblock *sb) {}
+      |                                               ^
+fs.c: In function ‘fs_put_block’:
+fs.c:150:58: warning: control reaches end of non-void function [-Wreturn-type]
+  150 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:153:32: warning: control reaches end of non-void function [-Wreturn-type]
+  153 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:156:37: warning: control reaches end of non-void function [-Wreturn-type]
+  156 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:158:58: warning: control reaches end of non-void function [-Wreturn-type]
+  158 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:160:57: warning: control reaches end of non-void function [-Wreturn-type]
+  160 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:162:57: warning: control reaches end of non-void function [-Wreturn-type]
+  162 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:164:62: warning: control reaches end of non-void function [-Wreturn-type]
+  164 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:90:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   90 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_get_block’:
+fs.c:145:47: warning: control reaches end of non-void function [-Wreturn-type]
+  145 | uint64_t fs_get_block(struct superblock *sb) {}
+      |                                               ^
+fs.c: In function ‘fs_put_block’:
+fs.c:150:58: warning: control reaches end of non-void function [-Wreturn-type]
+  150 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:153:32: warning: control reaches end of non-void function [-Wreturn-type]
+  153 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:156:37: warning: control reaches end of non-void function [-Wreturn-type]
+  156 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:158:58: warning: control reaches end of non-void function [-Wreturn-type]
+  158 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:160:57: warning: control reaches end of non-void function [-Wreturn-type]
+  160 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:162:57: warning: control reaches end of non-void function [-Wreturn-type]
+  162 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:164:62: warning: control reaches end of non-void function [-Wreturn-type]
+  164 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:90:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   90 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_get_block’:
+fs.c:145:47: warning: control reaches end of non-void function [-Wreturn-type]
+  145 | uint64_t fs_get_block(struct superblock *sb) {}
+      |                                               ^
+fs.c: In function ‘fs_put_block’:
+fs.c:150:58: warning: control reaches end of non-void function [-Wreturn-type]
+  150 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:153:32: warning: control reaches end of non-void function [-Wreturn-type]
+  153 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:156:37: warning: control reaches end of non-void function [-Wreturn-type]
+  156 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:158:58: warning: control reaches end of non-void function [-Wreturn-type]
+  158 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:160:57: warning: control reaches end of non-void function [-Wreturn-type]
+  160 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:162:57: warning: control reaches end of non-void function [-Wreturn-type]
+  162 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:164:62: warning: control reaches end of non-void function [-Wreturn-type]
+  164 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:90:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   90 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:182:58: warning: control reaches end of non-void function [-Wreturn-type]
+  182 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:185:32: warning: control reaches end of non-void function [-Wreturn-type]
+  185 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:188:37: warning: control reaches end of non-void function [-Wreturn-type]
+  188 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:190:58: warning: control reaches end of non-void function [-Wreturn-type]
+  190 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:192:57: warning: control reaches end of non-void function [-Wreturn-type]
+  192 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:194:57: warning: control reaches end of non-void function [-Wreturn-type]
+  194 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:196:62: warning: control reaches end of non-void function [-Wreturn-type]
+  196 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:182:58: warning: control reaches end of non-void function [-Wreturn-type]
+  182 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:185:32: warning: control reaches end of non-void function [-Wreturn-type]
+  185 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:188:37: warning: control reaches end of non-void function [-Wreturn-type]
+  188 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:190:58: warning: control reaches end of non-void function [-Wreturn-type]
+  190 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:192:57: warning: control reaches end of non-void function [-Wreturn-type]
+  192 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:194:57: warning: control reaches end of non-void function [-Wreturn-type]
+  194 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:196:62: warning: control reaches end of non-void function [-Wreturn-type]
+  196 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:182:58: warning: control reaches end of non-void function [-Wreturn-type]
+  182 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:185:32: warning: control reaches end of non-void function [-Wreturn-type]
+  185 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:188:37: warning: control reaches end of non-void function [-Wreturn-type]
+  188 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:190:58: warning: control reaches end of non-void function [-Wreturn-type]
+  190 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:192:57: warning: control reaches end of non-void function [-Wreturn-type]
+  192 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:194:57: warning: control reaches end of non-void function [-Wreturn-type]
+  194 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:196:62: warning: control reaches end of non-void function [-Wreturn-type]
+  196 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_put_block’:
+fs.c:187:58: warning: control reaches end of non-void function [-Wreturn-type]
+  187 | int fs_put_block(struct superblock *sb, uint64_t block) {}
+      |                                                          ^
+fs.c: In function ‘fs_write_file’:
+fs.c:190:32: warning: control reaches end of non-void function [-Wreturn-type]
+  190 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:193:37: warning: control reaches end of non-void function [-Wreturn-type]
+  193 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:195:58: warning: control reaches end of non-void function [-Wreturn-type]
+  195 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:197:57: warning: control reaches end of non-void function [-Wreturn-type]
+  197 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:199:57: warning: control reaches end of non-void function [-Wreturn-type]
+  199 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:201:62: warning: control reaches end of non-void function [-Wreturn-type]
+  201 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   95 |         fp->next = i;
+      |         ~~~~~~~~~^~~
