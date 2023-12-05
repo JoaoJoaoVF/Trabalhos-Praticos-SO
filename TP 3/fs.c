@@ -64,9 +64,13 @@ struct superblock *fs_format(const char *fname, uint64_t blocksize)
 
     FILE *arquivo = fopen(fname, "r");
 
+    if(arquivo == NULL)
+        return NULL; 
+    
+
     // fazendo o ponteiro apontar para o final do arquivo
     fseek(arquivo, 0, SEEK_END);
-    long long tamanho = ftell(arquivo);
+    uint64_t tamanho = ftell(arquivo);
     fclose(arquivo);
 
     uint64_t numero_blocos = tamanho / blocksize;
@@ -91,8 +95,8 @@ struct superblock *fs_format(const char *fname, uint64_t blocksize)
 
     struct freepage *fp; 
     // inicializando a lista de páginas vazias
-    for(int i = 4; i < blocksize-1; i++){
-        fp->next = i; 
+    for(int i = 3; i < numero_blocos-1; i++){
+        fp->next = i+1; 
         write(sb->fd, fp, blocksize); 
     }
 
@@ -108,11 +112,14 @@ struct superblock *fs_format(const char *fname, uint64_t blocksize)
 struct superblock *fs_open(const char *fname) {
 
     // o open() retorna um descritor de arquivo de acordo com https://man7.org/linux/man-pages/man2/open.2.html
-    uint64_t file_descriptor = open(fname, O_RDWR, 0777); 
+    uint64_t file_descriptor = open(fname, O_RDWR); 
 
     struct superblock *sb = malloc(sizeof(struct superblock)); 
 
-    sb->fd = file_descriptor; 
+    // sb->fd = file_descriptor; 
+
+    lseek(file_descriptor, 0, SEEK_SET); 
+
     read(file_descriptor, sb, sizeof(struct superblock)); 
 
     if(sb->magic != MAGIC){
@@ -157,24 +164,23 @@ uint64_t fs_get_block(struct superblock *sb) {
 
 
     // posiciona o ponteiro para o bloco vazio
-    lseek(sb->fd, sb->blksz * sb->freeblks, SEEK_SET); 
+    lseek(sb->fd, sb->blksz * sb->freelist, SEEK_SET); 
 
     struct freepage *fp = (struct freepage *) malloc(sb->blksz); 
 
     if(read(sb->fd, fp, sb->blksz) < 0){
         free(fp); 
-        return ((uint64_t)0)-1;
+        return ((uint64_t)-1);
     }  
 
     uint64_t freeblock = sb->freelist; 
     sb->freeblks -= 1; 
+    printf("freeblks = %d\n", sb->freeblks); 
     sb->freelist = fp->next; 
     
     lseek(sb->fd, 0, SEEK_SET); 
 
-    if(write(sb->fd, sb, sb->blksz) < 0){
-        return 0; 
-    }
+    write(sb->fd, sb, sb->blksz);
 
     free(fp); 
 
