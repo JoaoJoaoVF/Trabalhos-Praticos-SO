@@ -190,7 +190,15 @@ uint64_t fs_get_block(struct superblock *sb) {
 /* Put =block back into the filesystem as a free block.  Returns zero on
  * success or a negative value on error.  If there is an error, errno is set
  * accordingly. */
-int fs_put_block(struct superblock *sb, uint64_t block) {}
+int fs_put_block(struct superblock *sb, uint64_t block) {
+
+    struct freepage *fp = (struct freepage *) malloc(sb->blksz);    
+    fp->next = sb->freelist; 
+    sb->freeblks++; 
+    sb->freelist = block; 
+
+    return 0; 
+}
 
 int fs_write_file(struct superblock *sb, const char *fname, char *buf,
                   size_t cnt) {}

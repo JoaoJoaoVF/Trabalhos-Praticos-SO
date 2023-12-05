@@ -610,3 +610,108 @@ fs.c: In function ‘fs_format’:
 fs.c:95:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
    95 |         fp->next = i;
       |         ~~~~~~~~~^~~
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:204:32: warning: control reaches end of non-void function [-Wreturn-type]
+  204 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:207:37: warning: control reaches end of non-void function [-Wreturn-type]
+  207 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:209:58: warning: control reaches end of non-void function [-Wreturn-type]
+  209 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:211:57: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:213:57: warning: control reaches end of non-void function [-Wreturn-type]
+  213 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:215:62: warning: control reaches end of non-void function [-Wreturn-type]
+  215 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:204:32: warning: control reaches end of non-void function [-Wreturn-type]
+  204 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:207:37: warning: control reaches end of non-void function [-Wreturn-type]
+  207 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:209:58: warning: control reaches end of non-void function [-Wreturn-type]
+  209 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:211:57: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:213:57: warning: control reaches end of non-void function [-Wreturn-type]
+  213 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:215:62: warning: control reaches end of non-void function [-Wreturn-type]
+  215 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:204:32: warning: control reaches end of non-void function [-Wreturn-type]
+  204 |                   size_t cnt) {}
+      |                                ^
+fs.c: In function ‘fs_read_file’:
+fs.c:207:37: warning: control reaches end of non-void function [-Wreturn-type]
+  207 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:209:58: warning: control reaches end of non-void function [-Wreturn-type]
+  209 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:211:57: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:213:57: warning: control reaches end of non-void function [-Wreturn-type]
+  213 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:215:62: warning: control reaches end of non-void function [-Wreturn-type]
+  215 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
