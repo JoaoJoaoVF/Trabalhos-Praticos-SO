@@ -715,3 +715,991 @@ fs.c: In function ‘fs_format’:
 fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
    99 |         fp->next = i+1;
       |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:220:32: warning: implicit declaration of function ‘find_block’ [-Wimplicit-function-declaration]
+  220 |         uint64_t parentdir_n = find_block(sb,fname, 1);
+      |                                ^~~~~~~~~~
+fs.c:299:17: warning: implicit declaration of function ‘link_block’ [-Wimplicit-function-declaration]
+  299 |                 link_block(sb,parentdir,parentdir_n,file_n);
+      |                 ^~~~~~~~~~
+fs.c:204:16: warning: variable ‘aux’ set but not used [-Wunused-but-set-variable]
+  204 |         int ii,aux;
+      |                ^~~
+fs.c: In function ‘fs_read_file’:
+fs.c:429:37: warning: control reaches end of non-void function [-Wreturn-type]
+  429 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:431:58: warning: control reaches end of non-void function [-Wreturn-type]
+  431 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:433:57: warning: control reaches end of non-void function [-Wreturn-type]
+  433 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:435:57: warning: control reaches end of non-void function [-Wreturn-type]
+  435 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:437:62: warning: control reaches end of non-void function [-Wreturn-type]
+  437 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+/usr/bin/ld: fs.o: in function `fs_write_file':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:220: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:229: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:299: undefined reference to `link_block'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: fs.o: in function `fs_write_file':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:220: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:229: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:299: undefined reference to `link_block'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: fs.o: in function `fs_write_file':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:220: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:229: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:299: undefined reference to `link_block'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: fs.o: in function `fs_write_file':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:220: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:229: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:299: undefined reference to `link_block'
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:220:32: warning: implicit declaration of function ‘find_block’ [-Wimplicit-function-declaration]
+  220 |         uint64_t parentdir_n = find_block(sb,fname, 1);
+      |                                ^~~~~~~~~~
+fs.c:299:17: warning: implicit declaration of function ‘link_block’ [-Wimplicit-function-declaration]
+  299 |                 link_block(sb,parentdir,parentdir_n,file_n);
+      |                 ^~~~~~~~~~
+fs.c:204:16: warning: variable ‘aux’ set but not used [-Wunused-but-set-variable]
+  204 |         int ii,aux;
+      |                ^~~
+fs.c: In function ‘fs_read_file’:
+fs.c:429:37: warning: control reaches end of non-void function [-Wreturn-type]
+  429 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:431:58: warning: control reaches end of non-void function [-Wreturn-type]
+  431 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:433:57: warning: control reaches end of non-void function [-Wreturn-type]
+  433 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:435:57: warning: control reaches end of non-void function [-Wreturn-type]
+  435 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:437:62: warning: control reaches end of non-void function [-Wreturn-type]
+  437 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+/usr/bin/ld: fs.o: in function `fs_write_file':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:220: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:229: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:299: undefined reference to `link_block'
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:220:32: warning: implicit declaration of function ‘find_block’ [-Wimplicit-function-declaration]
+  220 |         uint64_t parentdir_n = find_block(sb,fname, 1);
+      |                                ^~~~~~~~~~
+fs.c:299:17: warning: implicit declaration of function ‘link_block’ [-Wimplicit-function-declaration]
+  299 |                 link_block(sb,parentdir,parentdir_n,file_n);
+      |                 ^~~~~~~~~~
+fs.c:204:16: warning: variable ‘aux’ set but not used [-Wunused-but-set-variable]
+  204 |         int ii,aux;
+      |                ^~~
+fs.c: In function ‘fs_read_file’:
+fs.c:429:37: warning: control reaches end of non-void function [-Wreturn-type]
+  429 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:431:58: warning: control reaches end of non-void function [-Wreturn-type]
+  431 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:433:57: warning: control reaches end of non-void function [-Wreturn-type]
+  433 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:435:57: warning: control reaches end of non-void function [-Wreturn-type]
+  435 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:437:62: warning: control reaches end of non-void function [-Wreturn-type]
+  437 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+/usr/bin/ld: fs.o: in function `fs_write_file':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:220: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:229: undefined reference to `find_block'
+/usr/bin/ld: /home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:299: undefined reference to `link_block'
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:205:1: warning: control reaches end of non-void function [-Wreturn-type]
+  205 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:208:37: warning: control reaches end of non-void function [-Wreturn-type]
+  208 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:210:58: warning: control reaches end of non-void function [-Wreturn-type]
+  210 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:212:57: warning: control reaches end of non-void function [-Wreturn-type]
+  212 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:214:57: warning: control reaches end of non-void function [-Wreturn-type]
+  214 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:216:62: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:205:1: warning: control reaches end of non-void function [-Wreturn-type]
+  205 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:208:37: warning: control reaches end of non-void function [-Wreturn-type]
+  208 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:210:58: warning: control reaches end of non-void function [-Wreturn-type]
+  210 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:212:57: warning: control reaches end of non-void function [-Wreturn-type]
+  212 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:214:57: warning: control reaches end of non-void function [-Wreturn-type]
+  214 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:216:62: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_get_block’:
+fs.c:178:25: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  178 |     printf("freeblks = %d\n", sb->freeblks);
+      |                        ~^     ~~~~~~~~~~~~
+      |                         |       |
+      |                         int     uint64_t {aka long unsigned int}
+      |                        %ld
+fs.c: In function ‘fs_write_file’:
+fs.c:205:1: warning: control reaches end of non-void function [-Wreturn-type]
+  205 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:208:37: warning: control reaches end of non-void function [-Wreturn-type]
+  208 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:210:58: warning: control reaches end of non-void function [-Wreturn-type]
+  210 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:212:57: warning: control reaches end of non-void function [-Wreturn-type]
+  212 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:214:57: warning: control reaches end of non-void function [-Wreturn-type]
+  214 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:216:62: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:211:1: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:214:37: warning: control reaches end of non-void function [-Wreturn-type]
+  214 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:216:58: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:218:57: warning: control reaches end of non-void function [-Wreturn-type]
+  218 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:220:57: warning: control reaches end of non-void function [-Wreturn-type]
+  220 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:222:62: warning: control reaches end of non-void function [-Wreturn-type]
+  222 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:211:1: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:214:37: warning: control reaches end of non-void function [-Wreturn-type]
+  214 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:216:58: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:218:57: warning: control reaches end of non-void function [-Wreturn-type]
+  218 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:220:57: warning: control reaches end of non-void function [-Wreturn-type]
+  220 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:222:62: warning: control reaches end of non-void function [-Wreturn-type]
+  222 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:211:1: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:214:37: warning: control reaches end of non-void function [-Wreturn-type]
+  214 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:216:58: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:218:57: warning: control reaches end of non-void function [-Wreturn-type]
+  218 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:220:57: warning: control reaches end of non-void function [-Wreturn-type]
+  220 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:222:62: warning: control reaches end of non-void function [-Wreturn-type]
+  222 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:211:1: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:214:37: warning: control reaches end of non-void function [-Wreturn-type]
+  214 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:216:58: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:218:57: warning: control reaches end of non-void function [-Wreturn-type]
+  218 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:220:57: warning: control reaches end of non-void function [-Wreturn-type]
+  220 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:222:62: warning: control reaches end of non-void function [-Wreturn-type]
+  222 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:211:1: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:214:37: warning: control reaches end of non-void function [-Wreturn-type]
+  214 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:216:58: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:218:57: warning: control reaches end of non-void function [-Wreturn-type]
+  218 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:220:57: warning: control reaches end of non-void function [-Wreturn-type]
+  220 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:222:62: warning: control reaches end of non-void function [-Wreturn-type]
+  222 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+tests/test5.c: In function ‘fs_format’:
+tests/test5.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+/usr/bin/ld: fs.o: in function `create_superblock':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:17: multiple definition of `create_superblock'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:58: first defined here
+/usr/bin/ld: fs.o: in function `create_root_directory':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:35: multiple definition of `create_root_directory'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:77: first defined here
+/usr/bin/ld: fs.o: in function `fs_format':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:56: multiple definition of `fs_format'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:98: first defined here
+/usr/bin/ld: fs.o: in function `fs_open':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:112: multiple definition of `fs_open'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:155: first defined here
+/usr/bin/ld: fs.o: in function `fs_close':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:140: multiple definition of `fs_close'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:189: first defined here
+/usr/bin/ld: fs.o: in function `fs_get_block':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:157: multiple definition of `fs_get_block'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:210: first defined here
+/usr/bin/ld: fs.o: in function `fs_put_block':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:192: multiple definition of `fs_put_block'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:246: first defined here
+/usr/bin/ld: fs.o: in function `fs_write_file':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:202: multiple definition of `fs_write_file'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:285: first defined here
+/usr/bin/ld: fs.o: in function `fs_unlink':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:216: multiple definition of `fs_unlink'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:593: first defined here
+/usr/bin/ld: fs.o: in function `fs_mkdir':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:218: multiple definition of `fs_mkdir'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:754: first defined here
+/usr/bin/ld: fs.o: in function `fs_rmdir':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:220: multiple definition of `fs_rmdir'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:907: first defined here
+/usr/bin/ld: fs.o: in function `fs_list_dir':
+/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/fs.c:222: multiple definition of `fs_list_dir'; /tmp/ccntxj22.o:/home/luiza/Trabalhos-Praticos-Sistemas-Operacionais/TP 3/tests/test5.c:1080: first defined here
+/usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+(.text+0x1b): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘fs_write_file’:
+fs.c:211:1: warning: control reaches end of non-void function [-Wreturn-type]
+  211 | }
+      | ^
+fs.c: In function ‘fs_read_file’:
+fs.c:214:37: warning: control reaches end of non-void function [-Wreturn-type]
+  214 |                      size_t bufsz) {}
+      |                                     ^
+fs.c: In function ‘fs_unlink’:
+fs.c:216:58: warning: control reaches end of non-void function [-Wreturn-type]
+  216 | int fs_unlink(struct superblock *sb, const char *fname) {}
+      |                                                          ^
+fs.c: In function ‘fs_mkdir’:
+fs.c:218:57: warning: control reaches end of non-void function [-Wreturn-type]
+  218 | int fs_mkdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:220:57: warning: control reaches end of non-void function [-Wreturn-type]
+  220 | int fs_rmdir(struct superblock *sb, const char *dname) {}
+      |                                                         ^
+fs.c: In function ‘fs_list_dir’:
+fs.c:222:62: warning: control reaches end of non-void function [-Wreturn-type]
+  222 | char *fs_list_dir(struct superblock *sb, const char *dname) {}
+      |                                                              ^
+fs.c: In function ‘fs_format’:
+fs.c:99:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+   99 |         fp->next = i+1;
+      |         ~~~~~~~~~^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:38: warning: passing argument 2 of ‘strcmp’ makes pointer from integer without a cast [-Wint-conversion]
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ~~~~~^~~
+      |                                      |
+      |                                      char
+In file included from fs.c:3:
+/usr/include/string.h:156:50: note: expected ‘const char *’ but argument is of type ‘char’
+  156 | extern int strcmp (const char *__s1, const char *__s2)
+      |                                      ~~~~~~~~~~~~^~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:378:72: warning: passing argument 6 of ‘find_file_in_folders’ from incompatible pointer type [-Wincompatible-pointer-types]
+  378 |             int found = find_file_in_folders(sb, in, in2, info, info2, files, j);
+      |                                                                        ^~~~~
+      |                                                                        |
+      |                                                                        char (*)[100]
+fs.c:280:54: note: expected ‘char *’ but argument is of type ‘char (*)[100]’
+  280 |                         struct nodeinfo *info2, char files[], int j)
+      |                                                 ~~~~~^~~~~~~
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:38: warning: passing argument 2 of ‘strcmp’ makes pointer from integer without a cast [-Wint-conversion]
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ~~~~~^~~
+      |                                      |
+      |                                      char
+In file included from fs.c:3:
+/usr/include/string.h:156:50: note: expected ‘const char *’ but argument is of type ‘char’
+  156 | extern int strcmp (const char *__s1, const char *__s2)
+      |                                      ~~~~~~~~~~~~^~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:378:72: warning: passing argument 6 of ‘find_file_in_folders’ from incompatible pointer type [-Wincompatible-pointer-types]
+  378 |             int found = find_file_in_folders(sb, in, in2, info, info2, files, j);
+      |                                                                        ^~~~~
+      |                                                                        |
+      |                                                                        char (*)[100]
+fs.c:280:54: note: expected ‘char *’ but argument is of type ‘char (*)[100]’
+  280 |                         struct nodeinfo *info2, char files[], int j)
+      |                                                 ~~~~~^~~~~~~
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:38: warning: passing argument 2 of ‘strcmp’ makes pointer from integer without a cast [-Wint-conversion]
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ~~~~~^~~
+      |                                      |
+      |                                      char
+In file included from fs.c:3:
+/usr/include/string.h:156:50: note: expected ‘const char *’ but argument is of type ‘char’
+  156 | extern int strcmp (const char *__s1, const char *__s2)
+      |                                      ~~~~~~~~~~~~^~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:378:72: warning: passing argument 6 of ‘find_file_in_folders’ from incompatible pointer type [-Wincompatible-pointer-types]
+  378 |             int found = find_file_in_folders(sb, in, in2, info, info2, files, j);
+      |                                                                        ^~~~~
+      |                                                                        |
+      |                                                                        char (*)[100]
+fs.c:280:54: note: expected ‘char *’ but argument is of type ‘char (*)[100]’
+  280 |                         struct nodeinfo *info2, char files[], int j)
+      |                                                 ~~~~~^~~~~~~
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:378:72: warning: passing argument 6 of ‘find_file_in_folders’ from incompatible pointer type [-Wincompatible-pointer-types]
+  378 |             int found = find_file_in_folders(sb, in, in2, info, info2, files, j);
+      |                                                                        ^~~~~
+      |                                                                        |
+      |                                                                        char (*)[100]
+fs.c:280:56: note: expected ‘char **’ but argument is of type ‘char (*)[100]’
+  280 |                         struct nodeinfo *info2, char **files, int j)
+      |                                                 ~~~~~~~^~~~~
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:378:72: warning: passing argument 6 of ‘find_file_in_folders’ from incompatible pointer type [-Wincompatible-pointer-types]
+  378 |             int found = find_file_in_folders(sb, in, in2, info, info2, files, j);
+      |                                                                        ^~~~~
+      |                                                                        |
+      |                                                                        char (*)[100]
+fs.c:280:56: note: expected ‘char **’ but argument is of type ‘char (*)[100]’
+  280 |                         struct nodeinfo *info2, char **files, int j)
+      |                                                 ~~~~~~~^~~~~
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:378:72: warning: passing argument 6 of ‘find_file_in_folders’ from incompatible pointer type [-Wincompatible-pointer-types]
+  378 |             int found = find_file_in_folders(sb, in, in2, info, info2, files, j);
+      |                                                                        ^~~~~
+      |                                                                        |
+      |                                                                        char (*)[100]
+fs.c:280:56: note: expected ‘char **’ but argument is of type ‘char (*)[100]’
+  280 |                         struct nodeinfo *info2, char **files, int j)
+      |                                                 ~~~~~~~^~~~~
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:388:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  388 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:394:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  394 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:394:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  394 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:394:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  394 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:321:26: warning: unused variable ‘found’ [-Wunused-variable]
+  321 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:393:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  393 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘find_file_in_folders’:
+fs.c:303:33: error: ‘files’ undeclared (first use in this function)
+  303 |         if (strcmp(info2->name, files[j]) == 0)
+      |                                 ^~~~~
+fs.c:303:33: note: each undeclared identifier is reported only once for each function it appears in
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:142:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  142 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:389:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  389 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:142:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  142 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:389:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  389 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_write_file’:
+fs.c:322:26: warning: unused variable ‘found’ [-Wunused-variable]
+  322 |     int blocos_alocados, found;
+      |                          ^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:142:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  142 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:389:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
+  389 |                     blocks[1] = in->links[k];
+      |                                 ~~~~~~~~~^~~
