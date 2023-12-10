@@ -1787,3 +1787,48 @@ fs.c: In function ‘fs_format’:
 fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
   160 |         fp->next = i + 1;
       |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘jump_to_next_inode’:
+fs.c:300:32: error: expected ‘;’ before ‘}’ token
+  300 |     read(sb->fd, in, sb->blksz)
+      |                                ^
+      |                                ;
+  301 | }
+      | ~                               
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘jump_to_next_inode’:
+fs.c:300:32: error: expected ‘;’ before ‘}’ token
+  300 |     read(sb->fd, in, sb->blksz)
+      |                                ^
+      |                                ;
+  301 | }
+      | ~                               
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘jump_to_next_inode’:
+fs.c:300:32: error: expected ‘;’ before ‘}’ token
+  300 |     read(sb->fd, in, sb->blksz)
+      |                                ^
+      |                                ;
+  301 | }
+      | ~                               
+/usr/bin/ld: cannot find fs.o: No such file or directory
+collect2: error: ld returned 1 exit status
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~

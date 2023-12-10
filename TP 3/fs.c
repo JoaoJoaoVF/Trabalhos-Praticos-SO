@@ -294,6 +294,12 @@ int fs_put_block(struct superblock *sb, uint64_t block)
     return 0;
 }
 
+void jump_to_next_inode(struct superblock *sb, struct inode *in)
+{
+    lseek(sb->fd, in->next * sb->blksz, SEEK_SET);
+    read(sb->fd, in, sb->blksz);
+}
+
 /* Escreve cnt bytes de buf no sistema de arquivos apontado por sb. Os dados serão
  * escritos num arquivo chamado fname. O parâmetro fname deve conter um caminho
  * absoluto. Retorna zero em caso de sucesso e um valor negativo em caso de erro; em
@@ -363,7 +369,7 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
 
             for (k = 0; k < info->size; k++)
             {
-                search_inode(sb, in, in2, info2, k); 
+                search_inode(sb, in, in2, info2, k);
 
                 if (strcmp(info2->name, files[j]) == 0)
                 {
@@ -424,9 +430,7 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
                 }
             }
 
-            // Jump to the next inode
-            lseek(sb->fd, in->next * sb->blksz, SEEK_SET);
-            read(sb->fd, in, sb->blksz);
+            jump_to_next_inode(sb, in);
         }
         // Jump to the next directory
         // info = info2;
@@ -589,7 +593,8 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
     return 0;
 }
 
-void read_root(struct superblock *sb, struct inode *in, struct nodeinfo *info){
+void read_root(struct superblock *sb, struct inode *in, struct nodeinfo *info)
+{
     // Root iNode
     lseek(sb->fd, sb->root * sb->blksz, SEEK_SET);
     read(sb->fd, in, sb->blksz);
@@ -597,6 +602,12 @@ void read_root(struct superblock *sb, struct inode *in, struct nodeinfo *info){
     // Root nodeinfo
     lseek(sb->fd, sb->blksz, SEEK_SET);
     read(sb->fd, info, sb->blksz);
+}
+
+void jump_to_next_dir(struct inode *in, struct inode *in2, struct nodeinfo *info, struct nodeinfo *info2)
+{
+    copy_inode(in, in2, info2);
+    copy_nodeinfo(info, info2);
 }
 
 /*Remove o arquivo chamado fname do sistema de arquivos apontado por sb (os blocos
@@ -638,7 +649,7 @@ int fs_unlink(struct superblock *sb, const char *fname)
     }
     num_elements_in_path = i;
 
-    read_root(sb, in, info); 
+    read_root(sb, in, info);
 
     parent_info_b = 1; // Root ndoeinfo
     parent_in_b = 2;   // Root inode
@@ -652,7 +663,7 @@ int fs_unlink(struct superblock *sb, const char *fname)
             // Check if the element is in the current inode
             for (k = 0; k < info->size; k++)
             {
-                search_inode(sb, in, in2, info2, k); 
+                search_inode(sb, in, in2, info2, k);
 
                 if (strcmp(info2->name, files[j]) == 0)
                 {
@@ -683,18 +694,12 @@ int fs_unlink(struct superblock *sb, const char *fname)
                 return -1;
             }
 
-            // Jump to the next inode
-            lseek(sb->fd, in->next * sb->blksz, SEEK_SET);
-            read(sb->fd, in, sb->blksz);
+            jump_to_next_inode(sb, in);
         }
 
-        // Save information about the previous directory
-        copy_inode(parent_in, in, info);
-        copy_nodeinfo(parent_info, info);
+        jump_to_next_dir(parent_in, in, parent_info, info); 
 
-        // Jump to the next directory
-        copy_inode(in, in2, info2);
-        copy_nodeinfo(info, info2);
+        jump_to_next_dir(in, in2, info, info2);
     }
 
     // Free blocks of directory's nodeinfo and inode
@@ -797,7 +802,7 @@ int fs_mkdir(struct superblock *sb, const char *dname)
             // Check if the element is in the current inode
             for (k = 0; k < info->size; k++)
             {
-                search_inode(sb, in, in2, info2, k); 
+                search_inode(sb, in, in2, info2, k);
 
                 if (strcmp(info2->name, files[j]) == 0)
                 {
@@ -824,14 +829,10 @@ int fs_mkdir(struct superblock *sb, const char *dname)
                 return -1;
             }
 
-            // Jump to the next inode
-            lseek(sb->fd, in->next * sb->blksz, SEEK_SET);
-            read(sb->fd, in, sb->blksz);
+            jump_to_next_inode(sb, in);
         }
 
-        // Jump to the next directory
-        copy_inode(in, in2, info2);
-        copy_nodeinfo(info, info2);
+        jump_to_next_dir(in, in2, info, info2);
     }
 
     // New nodeinfo
@@ -918,7 +919,7 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     }
     num_elements_in_path = i;
 
-    read_root(sb, in, info); 
+    read_root(sb, in, info);
 
     blocks[0] = 1;
     blocks[1] = 2;
@@ -935,7 +936,7 @@ int fs_rmdir(struct superblock *sb, const char *dname)
             // Check if the element is in the current inode
             for (k = 0; k < info->size; k++)
             {
-                search_inode(sb, in, in2, info2, k); 
+                search_inode(sb, in, in2, info2, k);
 
                 if (strcmp(info2->name, files[j]) == 0)
                 {
@@ -967,18 +968,12 @@ int fs_rmdir(struct superblock *sb, const char *dname)
                 return -1;
             }
 
-            // Jump to the next inode
-            lseek(sb->fd, in->next * sb->blksz, SEEK_SET);
-            read(sb->fd, in, sb->blksz);
+            jump_to_next_inode(sb, in);
         }
 
-        // Save information about the previous directory
-        copy_inode(parent_in, in, info);
-        copy_nodeinfo(parent_info, info);
+        jump_to_next_dir(parent_in, in, parent_info, info); 
 
-        // Jump to the next directory
-        copy_inode(in, in2, info2);
-        copy_nodeinfo(info, info2);
+        jump_to_next_dir(in, in2, info, info2); 
     }
 
     // Check if the directory is empty
@@ -1029,8 +1024,6 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     return 0;
 }
 
-
-
 /*Retorna um string com o nome de todos os elementos (arquivos e diretórios) no
 * diretório dname, os elementos devem estar separados por espaço. Os diretórios
 * devem estar indicados com uma barra ao final do nome. A ordem dos arquivos no
@@ -1047,13 +1040,10 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
     char *token;
     char *name, *elements;
 
-    struct inode *in, *in2;
-    struct nodeinfo *info, *info2;
-
-    in = (struct inode *)malloc(sb->blksz);
-    in2 = (struct inode *)malloc(sb->blksz);
-    info = (struct nodeinfo *)malloc(sb->blksz);
-    info2 = (struct nodeinfo *)malloc(sb->blksz);
+    struct inode *in = (struct inode *)malloc(sb->blksz);
+    struct inode *in2 = (struct inode *)malloc(sb->blksz);
+    struct nodeinfo *info = (struct nodeinfo *)malloc(sb->blksz);
+    struct nodeinfo *info2 = (struct nodeinfo *)malloc(sb->blksz);
 
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, dname);
@@ -1069,7 +1059,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
     }
     num_elements_in_path = i;
 
-    read_root(sb, in, info); 
+    read_root(sb, in, info);
 
     // Go trought every folder in the path, until reach the file, if it exists
     for (j = 0; j < num_elements_in_path; j++)
@@ -1081,7 +1071,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
             // Check if the element is in the current inode
             for (k = 0; k < info->size; k++)
             {
-                search_inode(sb, in, in2, info2, k); 
+                search_inode(sb, in, in2, info2, k);
 
                 if (strcmp(info2->name, files[j]) == 0)
                 {
@@ -1103,10 +1093,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
                 strcpy(elements, "-1");
                 return elements;
             }
-
-            // Jump to the next inode
-            lseek(sb->fd, in->next * sb->blksz, SEEK_SET);
-            read(sb->fd, in, sb->blksz);
+            jump_to_next_inode(sb, in);
         }
 
         // Jump to the next directory
@@ -1120,7 +1107,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
 
     for (i = 0; i < info->size; i++)
     {
-        search_inode(sb, in, in2, info2, i); 
+        search_inode(sb, in, in2, info2, i);
 
         strcpy((elements + pos), info2->name);
         pos += strlen(info2->name);
