@@ -589,6 +589,16 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
     return 0;
 }
 
+void read_root(struct superblock *sb, struct inode *in, struct nodeinfo *info){
+    // Root iNode
+    lseek(sb->fd, sb->root * sb->blksz, SEEK_SET);
+    read(sb->fd, in, sb->blksz);
+
+    // Root nodeinfo
+    lseek(sb->fd, sb->blksz, SEEK_SET);
+    read(sb->fd, info, sb->blksz);
+}
+
 /*Remove o arquivo chamado fname do sistema de arquivos apontado por sb (os blocos
  * associados ao arquivo devem ser liberados). Retorna zero em caso de sucesso e um
  * valor negativo em caso de erro; em caso de erro, este será salvo em errno de acordo
@@ -628,13 +638,7 @@ int fs_unlink(struct superblock *sb, const char *fname)
     }
     num_elements_in_path = i;
 
-    // Root iNode
-    lseek(sb->fd, sb->root * sb->blksz, SEEK_SET);
-    read(sb->fd, in, sb->blksz);
-
-    // Root nodeinfo
-    lseek(sb->fd, sb->blksz, SEEK_SET);
-    read(sb->fd, info, sb->blksz);
+    read_root(sb, in, info); 
 
     parent_info_b = 1; // Root ndoeinfo
     parent_in_b = 2;   // Root inode
@@ -914,13 +918,7 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     }
     num_elements_in_path = i;
 
-    // Root iNode
-    lseek(sb->fd, sb->root * sb->blksz, SEEK_SET);
-    read(sb->fd, in, sb->blksz);
-
-    // Root nodeinfo
-    lseek(sb->fd, sb->blksz, SEEK_SET);
-    read(sb->fd, info, sb->blksz);
+    read_root(sb, in, info); 
 
     blocks[0] = 1;
     blocks[1] = 2;
@@ -1071,13 +1069,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
     }
     num_elements_in_path = i;
 
-    // Root iNode
-    lseek(sb->fd, sb->root * sb->blksz, SEEK_SET);
-    read(sb->fd, in, sb->blksz);
-
-    // Root nodeinfo
-    lseek(sb->fd, sb->blksz, SEEK_SET);
-    read(sb->fd, info, sb->blksz);
+    read_root(sb, in, info); 
 
     // Go trought every folder in the path, until reach the file, if it exists
     for (j = 0; j < num_elements_in_path; j++)
