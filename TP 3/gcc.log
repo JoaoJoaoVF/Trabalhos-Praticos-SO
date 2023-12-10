@@ -1703,3 +1703,75 @@ fs.c: In function ‘fs_write_file’:
 fs.c:389:42: warning: ‘k’ may be used uninitialized [-Wmaybe-uninitialized]
   389 |                     blocks[1] = in->links[k];
       |                                 ~~~~~~~~~^~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:141:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  141 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
