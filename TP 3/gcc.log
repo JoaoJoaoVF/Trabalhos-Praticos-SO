@@ -1832,3 +1832,144 @@ fs.c: In function ‘fs_format’:
 fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
   160 |         fp->next = i + 1;
       |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:536:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  536 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_unlink’:
+fs.c:725:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  725 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:998:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  998 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:536:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  536 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_unlink’:
+fs.c:725:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  725 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:998:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  998 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:536:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  536 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_unlink’:
+fs.c:725:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  725 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:998:62: warning: passing argument 5 of ‘update_parent’ from incompatible pointer type [-Wincompatible-pointer-types]
+  998 |     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+      |                                                              ^~~~~~~~~~~
+      |                                                              |
+      |                                                              struct nodeinfo *
+fs.c:303:128: note: expected ‘struct inode *’ but argument is of type ‘struct nodeinfo *’
+  303 | void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct inode *parent_info)
+      |                                                                                                                  ~~~~~~~~~~~~~~^~~~~~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~

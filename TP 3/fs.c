@@ -300,6 +300,14 @@ void jump_to_next_inode(struct superblock *sb, struct inode *in)
     read(sb->fd, in, sb->blksz);
 }
 
+void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_info_b, struct inode *parent_in, struct nodeinfo *parent_info)
+{
+    lseek(sb->fd, parent_in_b * sb->blksz, SEEK_SET);
+    write(sb->fd, parent_in, sb->blksz);
+    lseek(sb->fd, parent_info_b * sb->blksz, SEEK_SET);
+    write(sb->fd, parent_info, sb->blksz);
+}
+
 /* Escreve cnt bytes de buf no sistema de arquivos apontado por sb. Os dados serão
  * escritos num arquivo chamado fname. O parâmetro fname deve conter um caminho
  * absoluto. Retorna zero em caso de sucesso e um valor negativo em caso de erro; em
@@ -525,13 +533,7 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
         }
     }
 
-    // Update parent nodeinfo
-    lseek(sb->fd, parent_info_b * sb->blksz, SEEK_SET);
-    write(sb->fd, parent_info, sb->blksz);
-
-    // Update parent inode
-    lseek(sb->fd, parent_in_b * sb->blksz, SEEK_SET);
-    write(sb->fd, parent_in, sb->blksz);
+    update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
 
     // Write new file nodeinfo
     lseek(sb->fd, blocks[0] * sb->blksz, SEEK_SET);
@@ -697,7 +699,7 @@ int fs_unlink(struct superblock *sb, const char *fname)
             jump_to_next_inode(sb, in);
         }
 
-        jump_to_next_dir(parent_in, in, parent_info, info); 
+        jump_to_next_dir(parent_in, in, parent_info, info);
 
         jump_to_next_dir(in, in2, info, info2);
     }
@@ -720,14 +722,9 @@ int fs_unlink(struct superblock *sb, const char *fname)
         }
     }
 
-    // Update parent's directory info
-    lseek(sb->fd, parent_in_b * sb->blksz, SEEK_SET);
-    write(sb->fd, parent_in, sb->blksz);
-
-    parent_info->size--;
-    lseek(sb->fd, parent_info_b * sb->blksz, SEEK_SET);
-    write(sb->fd, parent_info, sb->blksz);
-
+    parent_info->size--; 
+    update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
+    
     // Write superblock updated
     lseek(sb->fd, 0, SEEK_SET);
     write(sb->fd, sb, sb->blksz);
@@ -757,15 +754,12 @@ int fs_mkdir(struct superblock *sb, const char *dname)
     uint64_t blocks[MAX_FILE_SIZE];
     uint64_t block_info, block_inode;
     char files[MAX_SUBFOLDERS][MAX_NAME];
-    char *token;
-    char *name;
-    struct inode *in, *in2;
-    struct nodeinfo *info, *info2;
+    char *token, *name;
 
-    in = (struct inode *)malloc(sb->blksz);
-    in2 = (struct inode *)malloc(sb->blksz);
-    info = (struct nodeinfo *)malloc(sb->blksz);
-    info2 = (struct nodeinfo *)malloc(sb->blksz);
+    struct inode *in = (struct inode *)malloc(sb->blksz);
+    struct inode *in2 = (struct inode *)malloc(sb->blksz);
+    struct nodeinfo *info = (struct nodeinfo *)malloc(sb->blksz);
+    struct nodeinfo *info2 = (struct nodeinfo *)malloc(sb->blksz);
 
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, dname);
@@ -971,9 +965,9 @@ int fs_rmdir(struct superblock *sb, const char *dname)
             jump_to_next_inode(sb, in);
         }
 
-        jump_to_next_dir(parent_in, in, parent_info, info); 
+        jump_to_next_dir(parent_in, in, parent_info, info);
 
-        jump_to_next_dir(in, in2, info, info2); 
+        jump_to_next_dir(in, in2, info, info2);
     }
 
     // Check if the directory is empty
@@ -1002,13 +996,8 @@ int fs_rmdir(struct superblock *sb, const char *dname)
         }
     }
 
-    // Update parent's directory info
-    lseek(sb->fd, parent_in_b * sb->blksz, SEEK_SET);
-    write(sb->fd, parent_in, sb->blksz);
-
-    parent_info->size--;
-    lseek(sb->fd, parent_info_b * sb->blksz, SEEK_SET);
-    write(sb->fd, parent_info, sb->blksz);
+    parent_info->size--; 
+    update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
 
     // Write superblock updated
     lseek(sb->fd, 0, SEEK_SET);
