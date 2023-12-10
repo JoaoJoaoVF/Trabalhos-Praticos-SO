@@ -1973,3 +1973,27 @@ fs.c: In function ‘fs_format’:
 fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
   160 |         fp->next = i + 1;
       |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~

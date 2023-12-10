@@ -308,6 +308,16 @@ void update_parent(struct superblock *sb, uint64_t parent_in_b, uint64_t parent_
     write(sb->fd, parent_info, sb->blksz);
 }
 
+void free_all_info(struct inode *in, struct inode *in2, struct inode *parent_in, struct nodeinfo *info, struct nodeinfo *info2, struct nodeinfo *parent_info)
+{
+    free(in);
+    free(in2);
+    free(parent_in);
+    free(info);
+    free(info2);
+    free(parent_info);
+}
+
 /* Escreve cnt bytes de buf no sistema de arquivos apontado por sb. Os dados serão
  * escritos num arquivo chamado fname. O parâmetro fname deve conter um caminho
  * absoluto. Retorna zero em caso de sucesso e um valor negativo em caso de erro; em
@@ -585,12 +595,7 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
         return -1;
     }
 
-    free(in);
-    free(in2);
-    free(parent_in);
-    free(info);
-    free(info2);
-    free(parent_info);
+    free_all_info(in, in2, parent_in, info, info2, parent_info);
 
     return 0;
 }
@@ -610,6 +615,22 @@ void jump_to_next_dir(struct inode *in, struct inode *in2, struct nodeinfo *info
 {
     copy_inode(in, in2, info2);
     copy_nodeinfo(info, info2);
+}
+
+void remove_deleted_directory(struct inode *parent_in, struct nodeinfo *parent_info, uint64_t blocks[MAX_FILE_SIZE])
+{
+    for (int i = 0; i < parent_info->size; i++)
+    {
+        if (parent_in->links[i] == blocks[1])
+        {
+            while (i < parent_info->size - 1)
+            {
+                parent_in->links[i] = parent_in->links[i + 1];
+                i++;
+            }
+            break;
+        }
+    }
 }
 
 /*Remove o arquivo chamado fname do sistema de arquivos apontado por sb (os blocos
@@ -708,33 +729,16 @@ int fs_unlink(struct superblock *sb, const char *fname)
     fs_put_block(sb, blocks[0]);
     fs_put_block(sb, blocks[1]);
 
-    // Remove the deleted directory from his parent links
-    for (i = 0; i < parent_info->size; i++)
-    {
-        if (parent_in->links[i] == blocks[1])
-        {
-            while (i < parent_info->size - 1)
-            {
-                parent_in->links[i] = parent_in->links[i + 1];
-                i++;
-            }
-            break;
-        }
-    }
+    remove_deleted_directory(parent_in, parent_info, blocks); 
 
-    parent_info->size--; 
+    parent_info->size--;
     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
-    
+
     // Write superblock updated
     lseek(sb->fd, 0, SEEK_SET);
     write(sb->fd, sb, sb->blksz);
 
-    free(in);
-    free(in2);
-    free(parent_in);
-    free(info);
-    free(info2);
-    free(parent_info);
+    free_all_info(in, in2, parent_in, info, info2, parent_info);
 
     return 0;
 }
@@ -889,15 +893,12 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     char *token;
     char *name;
 
-    struct inode *in, *in2, *parent_in;
-    struct nodeinfo *info, *info2, *parent_info;
-
-    in = (struct inode *)malloc(sb->blksz);
-    in2 = (struct inode *)malloc(sb->blksz);
-    parent_in = (struct inode *)malloc(sb->blksz);
-    info = (struct nodeinfo *)malloc(sb->blksz);
-    info2 = (struct nodeinfo *)malloc(sb->blksz);
-    parent_info = (struct nodeinfo *)malloc(sb->blksz);
+    struct inode *in = (struct inode *)malloc(sb->blksz);
+    struct inode *in2 = (struct inode *)malloc(sb->blksz);
+    struct inode *parent_in = (struct inode *)malloc(sb->blksz);
+    struct nodeinfo *info = (struct nodeinfo *)malloc(sb->blksz);
+    struct nodeinfo *info2 = (struct nodeinfo *)malloc(sb->blksz);
+    struct nodeinfo *parent_info = (struct nodeinfo *)malloc(sb->blksz);
 
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, dname);
@@ -982,33 +983,16 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     fs_put_block(sb, blocks[0]);
     fs_put_block(sb, blocks[1]);
 
-    // Remove the deleted directory from his parent links
-    for (i = 0; i < parent_info->size; i++)
-    {
-        if (parent_in->links[i] == blocks[1])
-        {
-            while (i < parent_info->size - 1)
-            {
-                parent_in->links[i] = parent_in->links[i + 1];
-                i++;
-            }
-            break;
-        }
-    }
+    remove_deleted_directory(parent_in, parent_info, blocks); 
 
-    parent_info->size--; 
+    parent_info->size--;
     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
 
     // Write superblock updated
     lseek(sb->fd, 0, SEEK_SET);
     write(sb->fd, sb, sb->blksz);
 
-    free(in);
-    free(in2);
-    free(parent_in);
-    free(info);
-    free(info2);
-    free(parent_info);
+    free_all_info(in, in2, parent_in, info, info2, parent_info);
 
     return 0;
 }
@@ -1085,9 +1069,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
             jump_to_next_inode(sb, in);
         }
 
-        // Jump to the next directory
-        copy_inode(in, in2, info2);
-        copy_nodeinfo(info, info2);
+        jump_to_next_dir(in, in2, info, info2);
     }
 
     elements = (char *)malloc(MAX_PATH_NAME * sizeof(char));
