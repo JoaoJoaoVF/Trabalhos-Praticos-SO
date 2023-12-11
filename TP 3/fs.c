@@ -633,6 +633,12 @@ void remove_deleted_directory(struct inode *parent_in, struct nodeinfo *parent_i
     }
 }
 
+void write_superblock(struct superblock *sb)
+{
+    lseek(sb->fd, 0, SEEK_SET);
+    write(sb->fd, sb, sb->blksz);
+}
+
 /*Remove o arquivo chamado fname do sistema de arquivos apontado por sb (os blocos
  * associados ao arquivo devem ser liberados). Retorna zero em caso de sucesso e um
  * valor negativo em caso de erro; em caso de erro, este será salvo em errno de acordo
@@ -729,14 +735,12 @@ int fs_unlink(struct superblock *sb, const char *fname)
     fs_put_block(sb, blocks[0]);
     fs_put_block(sb, blocks[1]);
 
-    remove_deleted_directory(parent_in, parent_info, blocks); 
+    remove_deleted_directory(parent_in, parent_info, blocks);
 
     parent_info->size--;
     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
 
-    // Write superblock updated
-    lseek(sb->fd, 0, SEEK_SET);
-    write(sb->fd, sb, sb->blksz);
+    write_superblock(sb); 
 
     free_all_info(in, in2, parent_in, info, info2, parent_info);
 
@@ -865,9 +869,7 @@ int fs_mkdir(struct superblock *sb, const char *dname)
     lseek(sb->fd, blocks[1] * sb->blksz, SEEK_SET);
     write(sb->fd, in, sb->blksz);
 
-    // Write superblock updated
-    lseek(sb->fd, 0, SEEK_SET);
-    write(sb->fd, sb, sb->blksz);
+    write_superblock(sb); 
 
     free(in);
     free(in2);
@@ -983,14 +985,12 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     fs_put_block(sb, blocks[0]);
     fs_put_block(sb, blocks[1]);
 
-    remove_deleted_directory(parent_in, parent_info, blocks); 
+    remove_deleted_directory(parent_in, parent_info, blocks);
 
     parent_info->size--;
     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
 
-    // Write superblock updated
-    lseek(sb->fd, 0, SEEK_SET);
-    write(sb->fd, sb, sb->blksz);
+    write_superblock(sb); 
 
     free_all_info(in, in2, parent_in, info, info2, parent_info);
 
@@ -1010,8 +1010,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
     int i, j, k, pos, found;
     int num_elements_in_path;
     char files[MAX_SUBFOLDERS][MAX_NAME];
-    char *token;
-    char *name, *elements;
+    char *name, *elements, *token;
 
     struct inode *in = (struct inode *)malloc(sb->blksz);
     struct inode *in2 = (struct inode *)malloc(sb->blksz);
@@ -1055,12 +1054,12 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
 
             if (found)
             {
-                // The subfolder or file has been found in the current inode
+                // O arquivo foi encontrado no inode
                 break;
             }
             else if (j == (num_elements_in_path - 1) || in->next == 0)
             {
-                // The directory has not been found
+                // O diretório não foi encontrado
                 errno = ENOENT;
                 elements = (char *)malloc(3 * sizeof(char));
                 strcpy(elements, "-1");
