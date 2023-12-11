@@ -329,7 +329,7 @@ int subfolders_to_vector(char *token, char *name, char files[MAX_SUBFOLDERS][MAX
         token = strtok(NULL, "/");
         i++;
     }
-    return i; 
+    return i;
 }
 
 /* Escreve cnt bytes de buf no sistema de arquivos apontado por sb. Os dados serão
@@ -361,7 +361,7 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, fname);
 
-    num_elements_in_path = subfolders_to_vector(token, name,files);
+    num_elements_in_path = subfolders_to_vector(token, name, files);
 
     // Root nodeinfo
     lseek(sb->fd, sb->blksz, SEEK_SET);
@@ -455,7 +455,7 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
             jump_to_next_inode(sb, in);
         }
 
-        jump_to_next_dir(in, in2, info, info2); 
+        jump_to_next_dir(in, in2, info, info2);
     }
     // blocks[0] = Contains the block of the nodeinfo
     // blocks[1] = Contains the block of the first inode
@@ -638,6 +638,18 @@ void write_superblock(struct superblock *sb)
     write(sb->fd, sb, sb->blksz);
 }
 
+int search_file_in_directory(struct superblock *sb, struct inode *in, struct inode *in2, struct nodeinfo *info, struct nodeinfo *info2, char *file_name)
+{
+    for (int k = 0; k < info->size; k++)
+    {
+        search_inode(sb, in, in2, info2, k);
+        if (strcmp(info2->name, file_name) == 0)
+            return 1; 
+    }
+
+    return 0; 
+}
+
 /*Remove o arquivo chamado fname do sistema de arquivos apontado por sb (os blocos
  * associados ao arquivo devem ser liberados). Retorna zero em caso de sucesso e um
  * valor negativo em caso de erro; em caso de erro, este será salvo em errno de acordo
@@ -683,18 +695,8 @@ int fs_unlink(struct superblock *sb, const char *fname)
         // Check every element inside the current directory
         while (1)
         {
-            found = 0;
-            // Check if the element is in the current inode
-            for (k = 0; k < info->size; k++)
-            {
-                search_inode(sb, in, in2, info2, k);
-
-                if (strcmp(info2->name, files[j]) == 0)
-                {
-                    found = 1;
-                    break;
-                }
-            }
+            char *file_name = files[j]; 
+            found = search_file_in_directory(sb, in, in2, info, info2, file_name);
 
             if (found)
             {
@@ -786,18 +788,8 @@ int fs_mkdir(struct superblock *sb, const char *dname)
         // Check every element inside the current directory
         while (1)
         {
-            found = 0;
-            // Check if the element is in the current inode
-            for (k = 0; k < info->size; k++)
-            {
-                search_inode(sb, in, in2, info2, k);
-
-                if (strcmp(info2->name, files[j]) == 0)
-                {
-                    found = 1;
-                    break;
-                }
-            }
+            char *file_name = files[j]; 
+            found = search_file_in_directory(sb, in, in2, info, info2, file_name);
 
             if (found)
             {
@@ -878,8 +870,7 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     int num_elements_in_path;
     uint64_t blocks[MAX_FILE_SIZE], parent_in_b, parent_info_b;
     char files[MAX_SUBFOLDERS][MAX_NAME];
-    char *token;
-    char *name;
+    char *token, *name;
 
     struct inode *in = (struct inode *)malloc(sb->blksz);
     struct inode *in2 = (struct inode *)malloc(sb->blksz);
@@ -906,18 +897,8 @@ int fs_rmdir(struct superblock *sb, const char *dname)
         // Check every element inside the current directory
         while (1)
         {
-            found = 0;
-            // Check if the element is in the current inode
-            for (k = 0; k < info->size; k++)
-            {
-                search_inode(sb, in, in2, info2, k);
-
-                if (strcmp(info2->name, files[j]) == 0)
-                {
-                    found = 1;
-                    break;
-                }
-            }
+            char *file_name = files[j]; 
+            found = search_file_in_directory(sb, in, in2, info, info2, file_name);
 
             if (found)
             {
@@ -1007,24 +988,12 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
         // Check every element inside the current directory
         while (1)
         {
-            found = 0;
-            // Check if the element is in the current inode
-            for (k = 0; k < info->size; k++)
-            {
-                search_inode(sb, in, in2, info2, k);
-
-                if (strcmp(info2->name, files[j]) == 0)
-                {
-                    found = 1;
-                    break;
-                }
-            }
+            char *file_name = files[j]; 
+            found = search_file_in_directory(sb, in, in2, info, info2, file_name);
 
             if (found)
-            {
-                // O arquivo foi encontrado no inode
                 break;
-            }
+
             else if (j == (num_elements_in_path - 1) || in->next == 0)
             {
                 // O diretório não foi encontrado
@@ -1052,7 +1021,6 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
 
         if (in2->mode == IMDIR)
         {
-            // It is a directory
             elements[pos] = '/';
             elements[pos + 1] = '\0';
             pos++;
