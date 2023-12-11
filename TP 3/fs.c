@@ -318,6 +318,20 @@ void free_all_info(struct inode *in, struct inode *in2, struct inode *parent_in,
     free(parent_info);
 }
 
+int subfolders_to_vector(char *token, char *name, char files[MAX_SUBFOLDERS][MAX_NAME])
+{
+    int i = 0;
+
+    token = strtok(name, "/"); // Root
+    while (token != NULL)
+    {
+        strcpy(files[i], token);
+        token = strtok(NULL, "/");
+        i++;
+    }
+    return i; 
+}
+
 /* Escreve cnt bytes de buf no sistema de arquivos apontado por sb. Os dados serão
  * escritos num arquivo chamado fname. O parâmetro fname deve conter um caminho
  * absoluto. Retorna zero em caso de sucesso e um valor negativo em caso de erro; em
@@ -347,16 +361,16 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, fname);
 
-    // Separate the subfolders in a vector of strings
-    i = 0;
-    token = strtok(name, "/"); // Root
-    while (token != NULL)
-    {
-        strcpy(files[i], token);
-        token = strtok(NULL, "/");
-        i++;
-    }
-    num_elements_in_path = i;
+    // // Separate the subfolders in a vector of strings
+    // i = 0;
+    // token = strtok(name, "/"); // Root
+    // while (token != NULL)
+    // {
+    //     strcpy(files[i], token);
+    //     token = strtok(NULL, "/");
+    //     i++;
+    // }
+    num_elements_in_path = subfolders_to_vector(token, name,files);
 
     // Root nodeinfo
     lseek(sb->fd, sb->blksz, SEEK_SET);
@@ -450,8 +464,6 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
 
             jump_to_next_inode(sb, in);
         }
-        // Jump to the next directory
-        // info = info2;
 
         copy_inode(in, in2, info2);
         copy_nodeinfo(info, info2);
@@ -602,11 +614,9 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
 
 void read_root(struct superblock *sb, struct inode *in, struct nodeinfo *info)
 {
-    // Root iNode
     lseek(sb->fd, sb->root * sb->blksz, SEEK_SET);
     read(sb->fd, in, sb->blksz);
 
-    // Root nodeinfo
     lseek(sb->fd, sb->blksz, SEEK_SET);
     read(sb->fd, info, sb->blksz);
 }
@@ -651,25 +661,21 @@ int fs_unlink(struct superblock *sb, const char *fname)
     int num_elements_in_path;
     uint64_t blocks[MAX_FILE_SIZE], parent_in_b, parent_info_b;
     char files[MAX_SUBFOLDERS][MAX_NAME];
-    char *token;
-    char *name;
+    char *token, *name;
 
-    struct inode *in, *in2, *parent_in;
-    struct nodeinfo *info, *info2, *parent_info;
-
-    in = (struct inode *)malloc(sb->blksz);
-    in2 = (struct inode *)malloc(sb->blksz);
-    parent_in = (struct inode *)malloc(sb->blksz);
-    info = (struct nodeinfo *)malloc(sb->blksz);
-    info2 = (struct nodeinfo *)malloc(sb->blksz);
-    parent_info = (struct nodeinfo *)malloc(sb->blksz);
+    struct inode *in = (struct inode *)malloc(sb->blksz);
+    struct inode *in2 = (struct inode *)malloc(sb->blksz);
+    struct inode *parent_in = (struct inode *)malloc(sb->blksz);
+    struct nodeinfo *info = (struct nodeinfo *)malloc(sb->blksz);
+    struct nodeinfo *info2 = (struct nodeinfo *)malloc(sb->blksz);
+    struct nodeinfo *parent_info = (struct nodeinfo *)malloc(sb->blksz);
 
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, fname);
 
-    // Separate the subfolders in a vector of strings
+    // separa as subpastas em vetores
     i = 0;
-    token = strtok(name, "/"); // Root
+    token = strtok(name, "/");
     while (token != NULL)
     {
         strcpy(files[i], token);
@@ -740,7 +746,7 @@ int fs_unlink(struct superblock *sb, const char *fname)
     parent_info->size--;
     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
 
-    write_superblock(sb); 
+    write_superblock(sb);
 
     free_all_info(in, in2, parent_in, info, info2, parent_info);
 
@@ -772,16 +778,7 @@ int fs_mkdir(struct superblock *sb, const char *dname)
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, dname);
 
-    // Separate the subfolders in a vector of strings
-    i = 0;
-    token = strtok(name, "/"); // Root
-    while (token != NULL)
-    {
-        strcpy(files[i], token);
-        token = strtok(NULL, "/");
-        i++;
-    }
-    num_elements_in_path = i;
+    num_elements_in_path = subfolders_to_vector(token, name, files);
 
     // Root nodeinfo
     lseek(sb->fd, sb->blksz, SEEK_SET);
@@ -869,7 +866,7 @@ int fs_mkdir(struct superblock *sb, const char *dname)
     lseek(sb->fd, blocks[1] * sb->blksz, SEEK_SET);
     write(sb->fd, in, sb->blksz);
 
-    write_superblock(sb); 
+    write_superblock(sb);
 
     free(in);
     free(in2);
@@ -905,16 +902,7 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, dname);
 
-    // Separate the subfolders in a vector of strings
-    i = 0;
-    token = strtok(name, "/"); // Root
-    while (token != NULL)
-    {
-        strcpy(files[i], token);
-        token = strtok(NULL, "/");
-        i++;
-    }
-    num_elements_in_path = i;
+    num_elements_in_path = subfolders_to_vector(token, name, files);
 
     read_root(sb, in, info);
 
@@ -990,7 +978,7 @@ int fs_rmdir(struct superblock *sb, const char *dname)
     parent_info->size--;
     update_parent(sb, parent_in_b, parent_info_b, parent_in, parent_info);
 
-    write_superblock(sb); 
+    write_superblock(sb);
 
     free_all_info(in, in2, parent_in, info, info2, parent_info);
 
@@ -1020,16 +1008,7 @@ char *fs_list_dir(struct superblock *sb, const char *dname)
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, dname);
 
-    // Separate the subfolders in a vector of strings
-    i = 0;
-    token = strtok(name, "/"); // Root
-    while (token != NULL)
-    {
-        strcpy(files[i], token);
-        token = strtok(NULL, "/");
-        i++;
-    }
-    num_elements_in_path = i;
+    num_elements_in_path = subfolders_to_vector(token, name, files);
 
     read_root(sb, in, info);
 

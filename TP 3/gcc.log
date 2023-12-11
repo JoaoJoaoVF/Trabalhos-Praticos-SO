@@ -2009,3 +2009,192 @@ fs.c: In function ‘fs_format’:
 fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
   160 |         fp->next = i + 1;
       |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘subfolders_to_vector’:
+fs.c:328:21: warning: passing argument 1 of ‘strcpy’ makes pointer from integer without a cast [-Wint-conversion]
+  328 |         strcpy(files[i], token);
+      |                ~~~~~^~~
+      |                     |
+      |                     char
+In file included from fs.c:3:
+/usr/include/string.h:141:39: note: expected ‘char * restrict’ but argument is of type ‘char’
+  141 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+      |                      ~~~~~~~~~~~~~~~~~^~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:61: warning: passing argument 3 of ‘subfolders_to_vector’ from incompatible pointer type [-Wincompatible-pointer-types]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                                                             ^~~~~
+      |                                                             |
+      |                                                             char (*)[100]
+fs.c:321:57: note: expected ‘char *’ but argument is of type ‘char (*)[100]’
+  321 | int subfolders_to_vector(char *token, char *name, char *files)
+      |                                                   ~~~~~~^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘subfolders_to_vector’:
+fs.c:328:21: warning: passing argument 1 of ‘strcpy’ makes pointer from integer without a cast [-Wint-conversion]
+  328 |         strcpy(files[i], token);
+      |                ~~~~~^~~
+      |                     |
+      |                     char
+In file included from fs.c:3:
+/usr/include/string.h:141:39: note: expected ‘char * restrict’ but argument is of type ‘char’
+  141 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+      |                      ~~~~~~~~~~~~~~~~~^~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:61: warning: passing argument 3 of ‘subfolders_to_vector’ from incompatible pointer type [-Wincompatible-pointer-types]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                                                             ^~~~~
+      |                                                             |
+      |                                                             char (*)[100]
+fs.c:321:57: note: expected ‘char *’ but argument is of type ‘char (*)[100]’
+  321 | int subfolders_to_vector(char *token, char *name, char *files)
+      |                                                   ~~~~~~^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘subfolders_to_vector’:
+fs.c:328:21: warning: passing argument 1 of ‘strcpy’ makes pointer from integer without a cast [-Wint-conversion]
+  328 |         strcpy(files[i], token);
+      |                ~~~~~^~~
+      |                     |
+      |                     char
+In file included from fs.c:3:
+/usr/include/string.h:141:39: note: expected ‘char * restrict’ but argument is of type ‘char’
+  141 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+      |                      ~~~~~~~~~~~~~~~~~^~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:61: warning: passing argument 3 of ‘subfolders_to_vector’ from incompatible pointer type [-Wincompatible-pointer-types]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                                                             ^~~~~
+      |                                                             |
+      |                                                             char (*)[100]
+fs.c:321:57: note: expected ‘char *’ but argument is of type ‘char (*)[100]’
+  321 | int subfolders_to_vector(char *token, char *name, char *files)
+      |                                                   ~~~~~~^~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:766:9: warning: unused variable ‘i’ [-Wunused-variable]
+  766 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:888:9: warning: unused variable ‘i’ [-Wunused-variable]
+  888 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:781:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  781 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:905:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  905 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_list_dir’:
+fs.c:1011:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+ 1011 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:766:9: warning: unused variable ‘i’ [-Wunused-variable]
+  766 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:888:9: warning: unused variable ‘i’ [-Wunused-variable]
+  888 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:781:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  781 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:905:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  905 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_list_dir’:
+fs.c:1011:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+ 1011 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:766:9: warning: unused variable ‘i’ [-Wunused-variable]
+  766 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:888:9: warning: unused variable ‘i’ [-Wunused-variable]
+  888 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:373:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  373 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:781:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  781 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:905:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  905 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_list_dir’:
+fs.c:1011:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+ 1011 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
