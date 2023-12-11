@@ -2198,3 +2198,123 @@ fs.c: In function ‘fs_list_dir’:
 fs.c:1011:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
  1011 |     num_elements_in_path = subfolders_to_vector(token, name, files);
       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:458:9: warning: implicit declaration of function ‘jump_to_next_dir’; did you mean ‘jump_to_next_inode’? [-Wimplicit-function-declaration]
+  458 |         jump_to_next_dir(in, in2, info, info2);
+      |         ^~~~~~~~~~~~~~~~
+      |         jump_to_next_inode
+fs.c: At top level:
+fs.c:613:6: warning: conflicting types for ‘jump_to_next_dir’; have ‘void(struct inode *, struct inode *, struct nodeinfo *, struct nodeinfo *)’
+  613 | void jump_to_next_dir(struct inode *in, struct inode *in2, struct nodeinfo *info, struct nodeinfo *info2)
+      |      ^~~~~~~~~~~~~~~~
+fs.c:458:9: note: previous implicit declaration of ‘jump_to_next_dir’ with type ‘void(struct inode *, struct inode *, struct nodeinfo *, struct nodeinfo *)’
+  458 |         jump_to_next_dir(in, in2, info, info2);
+      |         ^~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:755:9: warning: unused variable ‘i’ [-Wunused-variable]
+  755 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:877:9: warning: unused variable ‘i’ [-Wunused-variable]
+  877 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:364:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  364 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:770:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  770 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:894:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  894 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_list_dir’:
+fs.c:1000:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+ 1000 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:458:9: warning: implicit declaration of function ‘jump_to_next_dir’; did you mean ‘jump_to_next_inode’? [-Wimplicit-function-declaration]
+  458 |         jump_to_next_dir(in, in2, info, info2);
+      |         ^~~~~~~~~~~~~~~~
+      |         jump_to_next_inode
+fs.c: At top level:
+fs.c:613:6: warning: conflicting types for ‘jump_to_next_dir’; have ‘void(struct inode *, struct inode *, struct nodeinfo *, struct nodeinfo *)’
+  613 | void jump_to_next_dir(struct inode *in, struct inode *in2, struct nodeinfo *info, struct nodeinfo *info2)
+      |      ^~~~~~~~~~~~~~~~
+fs.c:458:9: note: previous implicit declaration of ‘jump_to_next_dir’ with type ‘void(struct inode *, struct inode *, struct nodeinfo *, struct nodeinfo *)’
+  458 |         jump_to_next_dir(in, in2, info, info2);
+      |         ^~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:755:9: warning: unused variable ‘i’ [-Wunused-variable]
+  755 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:877:9: warning: unused variable ‘i’ [-Wunused-variable]
+  877 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:364:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  364 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:770:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  770 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:894:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  894 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_list_dir’:
+fs.c:1000:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+ 1000 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:458:9: warning: implicit declaration of function ‘jump_to_next_dir’; did you mean ‘jump_to_next_inode’? [-Wimplicit-function-declaration]
+  458 |         jump_to_next_dir(in, in2, info, info2);
+      |         ^~~~~~~~~~~~~~~~
+      |         jump_to_next_inode
+fs.c: At top level:
+fs.c:613:6: warning: conflicting types for ‘jump_to_next_dir’; have ‘void(struct inode *, struct inode *, struct nodeinfo *, struct nodeinfo *)’
+  613 | void jump_to_next_dir(struct inode *in, struct inode *in2, struct nodeinfo *info, struct nodeinfo *info2)
+      |      ^~~~~~~~~~~~~~~~
+fs.c:458:9: note: previous implicit declaration of ‘jump_to_next_dir’ with type ‘void(struct inode *, struct inode *, struct nodeinfo *, struct nodeinfo *)’
+  458 |         jump_to_next_dir(in, in2, info, info2);
+      |         ^~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:755:9: warning: unused variable ‘i’ [-Wunused-variable]
+  755 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_rmdir’:
+fs.c:877:9: warning: unused variable ‘i’ [-Wunused-variable]
+  877 |     int i, j, k, found;
+      |         ^
+fs.c: In function ‘fs_format’:
+fs.c:160:18: warning: ‘fp’ may be used uninitialized [-Wmaybe-uninitialized]
+  160 |         fp->next = i + 1;
+      |         ~~~~~~~~~^~~~~~~
+fs.c: In function ‘fs_write_file’:
+fs.c:364:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  364 |     num_elements_in_path = subfolders_to_vector(token, name,files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_mkdir’:
+fs.c:770:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  770 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_rmdir’:
+fs.c:894:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+  894 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs.c: In function ‘fs_list_dir’:
+fs.c:1000:28: warning: ‘token’ is used uninitialized [-Wuninitialized]
+ 1000 |     num_elements_in_path = subfolders_to_vector(token, name, files);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

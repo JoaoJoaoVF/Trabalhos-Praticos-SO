@@ -361,15 +361,6 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
     name = (char *)malloc(MAX_PATH_NAME * sizeof(char));
     strcpy(name, fname);
 
-    // // Separate the subfolders in a vector of strings
-    // i = 0;
-    // token = strtok(name, "/"); // Root
-    // while (token != NULL)
-    // {
-    //     strcpy(files[i], token);
-    //     token = strtok(NULL, "/");
-    //     i++;
-    // }
     num_elements_in_path = subfolders_to_vector(token, name,files);
 
     // Root nodeinfo
@@ -456,7 +447,6 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
                 }
                 else if (in->next == 0)
                 {
-                    // No such directory
                     errno = ENOENT;
                     return -1;
                 }
@@ -465,8 +455,7 @@ int fs_write_file(struct superblock *sb, const char *fname, char *buf, size_t cn
             jump_to_next_inode(sb, in);
         }
 
-        copy_inode(in, in2, info2);
-        copy_nodeinfo(info, info2);
+        jump_to_next_dir(in, in2, info, info2); 
     }
     // blocks[0] = Contains the block of the nodeinfo
     // blocks[1] = Contains the block of the first inode
